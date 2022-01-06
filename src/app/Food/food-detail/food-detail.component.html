@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-xs-4">
+        <label>Food Name: </label>
+        <h4>{{foodItem.name}}</h4>
+
+    </div>
+    <div class="col-xs-4">
+        <label>Brand Name: </label>
+        <h4>{{ foodItem.brand }}</h4>
+    </div>
+    <div class="col-xs-2">
+        <label>Quantity:</label>
+        <h5>{{ foodItem.quantity }}</h5>
+    </div>
+    <div class="col-xs-2">
+        <label>Expiration Date:</label>
+        <h5>{{ foodItem.expDate | date}}</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <label>Size: </label>
+        <h4>{{ foodItem.size }}</h4>
+    </div>
+    <div class="col-xs-4">
+        <label>Location:</label>
+        <h4>{{ foodItem.location }}</h4>
+    </div>
+    <div class="col-xs-4">
+        <label>Storage Type:</label>
+        <h4>{{ foodItem.storageType }}</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-1">
+        <label>Tags: </label>
+    </div>
+</div>
+<div *ngFor="let tag of foodItem.tags; let i = index">
+    <div *ngIf="i % 3 == 0" class="row">
+        <div class="col-xs-4">{{ tag }}</div>
+        <div class="col-xs-4" *ngIf="i + 1 < foodItem.tags.length">{{ foodItem.tags[i + 1] }}</div>
+        <div class="col-xs-4" *ngIf="i + 2 < foodItem.tags.length">{{ foodItem.tags[i + 2] }}</div>
+    </div>
+</div>
+<!-- <div class="col-xs-11" *ngFor="let el of foodItem.tags">
+        <h4>{{ el }}</h4>
+    </div> -->
+<div class="row">
+    <div class="col-xs-11"></div>
+    <div class="col-xs-1">
+        <button class="btn btn-primary" (click)="onEdit()">Edit</button>
+    </div>
+</div>

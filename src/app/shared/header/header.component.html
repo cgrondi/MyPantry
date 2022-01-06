@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="nav nav-tabs">
+            <li class="nav-item" [ngClass]="{'active': isPantry }">
+                <a class="nav-link" [routerLink]='["pantry"]'>Pantry</a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': isFreezer }">
+                <a class="nav-link" [routerLink]='["freezer"]'>Freezer</a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': isImpendingExpiration }">
+                <a class="nav-link" [routerLink]='["impendingExpiration"]'>Impending Expiration</a>
+            </li>
+        </ul>
+        <button type="button" (click)="callRoute()">Call Route</button>
+    </div>
+</div>
