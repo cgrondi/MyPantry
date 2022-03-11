@@ -1,0 +1,44 @@
+.row {
+  background-color: rgb(175, 159, 129);
+}
+li.active a {
+  background-color: #fff9e6;
+  color: #2e7d32;
+  font-weight: bolder;
+}
+a {
+  background-color: #e2ddca;
+  font-weight: bold;
+  color: #2e7d32;
+}
+ul {
+  background-color: rgb(175, 159, 129);
+}
+.logo {
+  background-color: rgb(175, 159, 129);
+}
+.logo h1 {
+  margin-top: 2%;
+  margin-left: 1%;
+  padding-bottom: 1%;
+  color: #2e7d32;
+  font-family: "Apple Chancery", cursive;
+  font-weight: bold;
+  font-style: italic;
+  font-size: xxx-large;
+}
+
+.titleDecoration {
+  position: absolute;
+  height: 140px;
+  width: 350px;
+  left: 268px;
+  bottom: -52px;
+}
+.cornerDecoration {
+  height: 200px;
+  width: 350px;
+  position: absolute;
+  bottom: -110px;
+  right: 25px;
+}

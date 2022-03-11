@@ -1,5 +1,49 @@
-.scrollable{
-    overflow-y: scroll;
-    height: 70vh;
-    width: 99%;
+.scrollable {
+  overflow-y: hidden;
+  /* height: 70vh; */
+  /* width: 99%; */
+}
+.card {
+  background: #ffff;
+  box-shadow: 6px 6px 5px gray;
+  padding: 5px;
+  margin-bottom: 5%;
+}
+
+.leafyVine {
+  border: 0;
+  height: 46px;
+  margin-left: 15%;
+  /* width: 56%; */
+  /* width = 56% OR */
+  /* disable width, margin-left ~12% */
+  background-image: url(../../assets/images/LeafyVine2.png);
+  /* margin: auto; */
+  background-repeat: no-repeat;
+}
+
+.labels-container {
+  background-color: #e2ddca;
+  padding-left: 1%;
+  border-bottom: 2px solid #2e7d32;
+}
+.col-label {
+  padding-right: 1%;
+  padding-top: 1%;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #2e7d32;
+}
+
+.date-input {
+  width: 20%;
+}
+.date-label {
+  color: #2e7d32;
+}
+
+.form-child {
+  display: inline;
+  margin-right: 1%;
+  /* float: left; */
 }

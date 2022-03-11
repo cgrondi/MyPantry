@@ -9,6 +9,7 @@ export class FilterDatesPipe implements PipeTransform {
     if (value.length === 0) {
       return value
     }
+    // console.log('filterPipe filterDate: ' + filterDate);
     const resultArray = [];
     for (const item of value) {
       if (item['expDate'] < filterDate) {

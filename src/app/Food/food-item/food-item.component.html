@@ -10,10 +10,17 @@
                     {{ item.quantity }}
                     <button class="btn" (click)="onAdd()">+</button>
                 </div>
-                <div class="col-xs-1">{{ item.expDate | date}}</div>
+                <div *ngIf="!checkDate(item.expDate)" class="col-xs-1">{{ item.expDate | date}}</div>
+                <div *ngIf="checkDate(item.expDate)" class="expired col-xs-1">Expired</div>
 
             </div>
         </a>
     </div>
-    <div class="col-xs-1"><button type="button" class="btn btn-danger" (click)="onRemove()">Remove</button></div>
+    <div class="col-xs-1">
+        <div class="row">
+            <div class="col">
+                <button type="button" mat-raised-button color="warn" class="center-button" (click)="onRemove()">Remove</button>
+            </div>
+        </div>
+    </div>
 </div>

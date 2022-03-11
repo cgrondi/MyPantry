@@ -1,23 +1,47 @@
 <div class="row">
-    <div class="col-xs-12">
-        <h3>Search</h3>
-    </div>
-    <div class="col-xs-4">
-        Name Contains: <input type="text">
-    </div>
-    <div class="col-xs-4">
-        Brand: <input type="text">
-    </div>
-    <div class="col-xs-4">
-        Expires before: <input type="date">
-    </div>
-    <div class="col-xs-12">
-        Quantity: <input type="number">
-    </div>
-    <div class="col-xs-12">
-        Contains tags: <input type="text">
-    </div>
-    <div class="col-xs-12">
-        <button class="btn btn-info">Search</button>
-    </div>
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+        <div class="col-xs-12">
+            <h3>Search</h3>
+        </div>
+        <div class="col-xs-6">
+            <label for="name">Name Contains: </label>
+            <input class="form-control" type="text" id="name" formControlName="name">
+        </div>
+        <div class="col-xs-6">
+            <label for="brand">Brand: </label>
+            <input class="form-control" type="text" id="brand" formControlName="brand">
+        </div>
+        <div class="col-xs-3">
+            <label for="expDate">Expires before: </label>
+            <input class="form-control" type="date" id="expDate" formControlName="expDate">
+        </div>
+        <div class="col-xs-3">
+            <label for="quantity">Less than this Quantity: </label>
+            <input class="form-control" type="number" id="quantity" formControlName="quantity">
+        </div>
+
+        <div class="col-xs-12" formArrayName="tags">
+            <div class="row">
+                <div class="col-xs-1">
+                    <label>Contains tags: </label>
+                    <button type="button" mat-raised-button color="accent" (click)="onAddTag()">Add Tag</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2" *ngFor="let tag of getTagControls(); let i=index">
+                    <input type="text" [formControlName]="i">
+                    <button type="button" mat-raised-button color="warn" (click)="onDeleteTag(i)">X</button>
+                    <p class="error-message" *ngIf="!searchForm.get('tags')['controls'][i].valid">
+                        Tag needs a value</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <!-- <p class="error-message" *ngIf="needsInput">Please input a value into a search field</p> -->
+            <button mat-raised-button color="accent" type="submit" [disabled]="!searchForm.valid">Search</button>
+            <button mat-raised-button color="warn" type="button" style="margin: 5px" (click)="clearForm()">Clear Search
+                Fields</button>
+        </div>
+    </form>
 </div>

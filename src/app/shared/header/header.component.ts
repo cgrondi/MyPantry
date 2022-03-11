@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,32 +12,29 @@ export class HeaderComponent implements OnInit {
   isFreezer = false;
   isImpendingExpiration = false;
 
-  constructor(private route: ActivatedRoute) { }
+  activeTab = "";
+
+  constructor(private location: Location) { }
 
   ngOnInit(): void {
-    console.log("Checking url")
-    this.isPantry = this.route.toString().includes('pantry');
-    console.log("Route = " + this.route.toString());
-    if (this.route.toString().includes('pantry')) {
-      console.log("route contains pantry");
-      this.isPantry = true;
+
+    if (this.location.path().includes('pantry')) {
+      this.activeTab = 'pantry';
     }
-    else if (this.route.toString().includes('freezer')) {
-      console.log("route contains freezer");
-      this.isPantry = true;
+    else if (this.location.path().includes('freezer')) {
+      this.activeTab = 'freezer';
     }
-    else if (this.route.toString().includes('ImpendingExpiration')) {
-      console.log("route contains impendingExpiration");
-      this.isPantry = true;
+    else if (this.location.path().includes('impendingExpiration')) {
+      this.activeTab = 'impendingExpiration';
     }
     else {
       console.log("ERROR: Route does not contain Pantry, Freezer, or ImpendingExpiration. ERROR in Header Component.")
     }
   }
 
-  callRoute() {
-    console.log("Route = " + this.route);
-    console.log(this.route)
+
+  setActiveTab(activeTab: string) {
+    this.activeTab = activeTab;
   }
 
 

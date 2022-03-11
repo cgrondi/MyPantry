@@ -1,0 +1,26 @@
+.food-list-container {
+  /* overflow-y: auto; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* ^ ???? causes x to clip */
+  height: 50vh;
+  background-color: #e2ddca;
+}
+
+.clear-box {
+  border: none;
+  background: none;
+}
+.yellow-box {
+  border: 1px solid rgb(255, 234, 0);
+  background: rgba(255, 234, 0, 0.5);
+}
+.orange-box {
+  border: 1px solid rgb(255, 115, 0);
+  background: rgba(255, 115, 0, 0.5);
+}
+.red-box {
+  /* background-color: red; */
+  border: 1px solid rgb(255, 0, 0);
+  background: rgba(255, 0, 0, 0.5);
+}

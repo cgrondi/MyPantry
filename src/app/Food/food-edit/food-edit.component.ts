@@ -94,7 +94,7 @@ export class FoodEditComponent implements OnInit, OnDestroy {
 
   onSave() {
     const dateOutput = this.foodForm.value.expDate;
-    const newFoodItem = new FoodItem(this.foodForm.value.name, this.foodForm.value.brand, this.foodForm.value.quantity, this.foodForm.value.size, this.toDateObj(dateOutput), this.foodForm.value.location, this.foodForm.value.storageType, this.foodForm.value.tags);
+    const newFoodItem = new FoodItem(this.foodForm.value.name, this.foodForm.value.brand, this.foodForm.value.quantity, this.foodForm.value.size, this.toDateObj(dateOutput), this.foodForm.value.location, this.foodForm.value.storageType, this.foodForm.value.tags, this.foodItem.id);
     this.foodItemService.updateItem(newFoodItem, this.id);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
@@ -107,14 +107,14 @@ export class FoodEditComponent implements OnInit, OnDestroy {
     // console.log('dateArray: ' + dateArray[0]);
     // const newDate = new Date(dateArray[0], dateArray[1], dateArray[2]);
     // console.log("OnAddItem Date: " + newDate);
-    const newFoodItem = new FoodItem(this.foodForm.value.name, this.foodForm.value.brand, this.foodForm.value.quantity, this.foodForm.value.size, this.toDateObj(dateOutput), this.foodForm.value.location, this.foodForm.value.storageType, this.foodForm.value.tags);
+    const newFoodItem = new FoodItem(this.foodForm.value.name, this.foodForm.value.brand, this.foodForm.value.quantity, this.foodForm.value.size, this.toDateObj(dateOutput), this.foodForm.value.location, this.foodForm.value.storageType, this.foodForm.value.tags, this.foodItemService.nextId);
     this.foodItemService.addItem(newFoodItem);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   toDateObj(str: string) {
     let dateArray = (<string[]>str.split('-'));
-    return new Date(+dateArray[0], +dateArray[1], +dateArray[2]);
+    return new Date(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
   }
 
   onAddTag() {

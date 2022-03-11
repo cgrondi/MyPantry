@@ -10,7 +10,7 @@ import { FoodItemService } from '../foodItem.service';
 export class FoodItemComponent implements OnInit {
 
   atOne = true;
-  word = 'search';
+  // word = 'search';
 
   @Input() item: FoodItem;
   @Input() index: number;
@@ -38,6 +38,10 @@ export class FoodItemComponent implements OnInit {
 
   onRemove() {
     this.foodItemService.deleteItem(this.index);
+  }
+
+  checkDate(date: Date) {
+    return date < new Date();
   }
 
 }

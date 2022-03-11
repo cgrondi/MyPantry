@@ -1,16 +1,23 @@
+<div class="row logo">
+  <div class="col-xs-12 title-tile">
+    <h1>Mimi's Pantry</h1>
+    <img class="titleDecoration" src="../../../assets/images/VineRightDecoration.png" alt="VineDecoration">
+    <!-- <img class="cornerDecoration" src="../../../assets/images/GrapeVineCornerSharp.png" alt="GrapeVineCorner"> -->
+  </div>
+</div>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-3">
         <ul class="nav nav-tabs">
-            <li class="nav-item" [ngClass]="{'active': isPantry }">
-                <a class="nav-link" [routerLink]='["pantry"]'>Pantry</a>
+            <li class="nav-item" [ngClass]="{'active': activeTab === 'pantry' }">
+                <a class="nav-link" [routerLink]='["pantry"]' (click)="setActiveTab('pantry')">Pantry</a>
             </li>
-            <li class="nav-item" [ngClass]="{'active': isFreezer }">
-                <a class="nav-link" [routerLink]='["freezer"]'>Freezer</a>
+            <li class="nav-item" [ngClass]="{'active': activeTab === 'freezer' }">
+                <a class="nav-link" [routerLink]='["freezer"]' (click)="setActiveTab('freezer')">Freezer</a>
             </li>
-            <li class="nav-item" [ngClass]="{'active': isImpendingExpiration }">
-                <a class="nav-link" [routerLink]='["impendingExpiration"]'>Impending Expiration</a>
+            <li class="nav-item" [ngClass]="{'active': activeTab === 'impendingExpiration' }">
+                <a class="nav-link" [routerLink]='["impendingExpiration"]'
+                    (click)="setActiveTab('impendingExpiration')">Impending Expiration</a>
             </li>
         </ul>
-        <button type="button" (click)="callRoute()">Call Route</button>
     </div>
 </div>

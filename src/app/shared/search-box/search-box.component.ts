@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { informationService } from '../information.service';
 
 @Component({
   selector: 'app-search-box',
@@ -7,9 +9,57 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBoxComponent implements OnInit {
 
-  constructor() { }
+  searchForm: FormGroup;
+  name = '';
+  brand = '';
+  expDate = '';
+  quantity: number;
+  tags = new FormArray([]);
+  needsInput: boolean = false;
+
+  constructor(private infoService: informationService) { }
 
   ngOnInit(): void {
+    this.searchForm = new FormGroup({
+      'name': new FormControl(),
+      'brand': new FormControl(),
+      'expDate': new FormControl(),
+      'quantity': new FormControl(null, Validators.min(0)),
+      'tags': this.tags
+    })
+  }
+
+  onSearch() {
+    this.name = this.searchForm.value.name;
+    this.brand = this.searchForm.value.brand;
+    this.expDate = this.searchForm.value.expDate;
+    this.quantity = this.searchForm.value.quantity;
+
+    this.needsInput = false;
+    // console.log(this.searchForm.value);
+    this.infoService.setSearchFields(this.searchForm.value);
+
+    // if (this.name === null && this.brand === null && this.expDate === null && this.quantity == null && this.tags.length === 0) {
+    //   this.needsInput = true;
+    //   console.log('Search form empty');
+    // }
+    // else {
+    // }
+  }
+
+  onAddTag() {
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.searchForm.get('tags')).push(control);
+  }
+
+  getTagControls() {
+    return (<FormArray>this.searchForm.get('tags')).controls;
+  }
+  onDeleteTag(index: number) {
+    (<FormArray>this.searchForm.get('tags')).removeAt(index);
+  }
+  clearForm() {
+    this.searchForm.reset()
   }
 
 }
