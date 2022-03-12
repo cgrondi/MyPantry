@@ -7,9 +7,9 @@ export class FoodItem {
     public location: string;
     public storageType: string;
     public tags: string[];
-    public id: number;
+    public id: string;
 
-    constructor(name: string, brand: string, quantity: number, size: string, expDate: Date, location: string, storageType: string, tags: string[], id: number) {
+    constructor(name: string, brand: string, quantity: number, size: string, expDate: Date, location: string, storageType: string, tags: string[], id: string) {
         this.name = name;
         this.brand = brand;
         this.quantity = quantity;

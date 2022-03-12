@@ -12,7 +12,8 @@ import { FoodItemService } from '../foodItem.service';
 export class FoodDetailComponent implements OnInit, OnDestroy {
   foodItem: FoodItem;
   subscription: Subscription;
-  id: number;
+  id: string;
+  ready: boolean = false;
 
   name = "";
   brand = "";
@@ -26,8 +27,11 @@ export class FoodDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
-        this.foodItem = this.foodItemService.getItem(this.id);
+        this.id = params['id'];
+        this.foodItemService.getItem(this.id).subscribe(foodData => {
+            this.foodItem = {id: foodData.food._id, name: foodData.food.name, brand: foodData.food.brand, quantity: foodData.food.quantity, size: foodData.food.size, expDate: new Date(foodData.food.expDate), location: foodData.food.location, storageType: foodData.food.storageType, tags: foodData.food.tags};
+            this.ready =true;
+        });
       }
     );
   }

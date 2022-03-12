@@ -1,0 +1,4 @@
+Link to note card example:
+  https://codepen.io/bobbyahines/pen/RaYNqP
+Link to theme sass creator: 
+	http://mcg.mbitson.com

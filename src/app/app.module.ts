@@ -15,10 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './filter.pipe';
 import { FilterDatesPipe } from './filter-dates.pipe';
 import { ListTabComponent } from './list-tab/list-tab.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+// import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //?
+
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule}  from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+
+
 import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
 
 @NgModule({
@@ -42,9 +47,11 @@ import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NoopAnimationsModule,
+    // NoopAnimationsModule, //?
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

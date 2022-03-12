@@ -55,7 +55,7 @@ export class FoodListComponent implements OnInit, OnDestroy {
         this.foodItems = foodItems;
       }
     )
-    this.foodItems = this.foodItemService.getItems();
+    this.foodItemService.getItems();
 
     this.infoSubscription = this.infoService.searchFieldsChanged.subscribe(
       (searchFields: searchFields) => {
@@ -87,5 +87,4 @@ export class FoodListComponent implements OnInit, OnDestroy {
       return false;
     }
   }
-
 }
