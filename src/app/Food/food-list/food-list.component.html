@@ -10,9 +10,10 @@
 </div> -->
 
 <div class="row">
+
   <div class="col-xs-12">
     <span *ngIf="!expirationMode">
-        <app-food-item *ngFor="let item of (foodItems | filter:filterString:'storageType' |
+        <app-food-item *ngFor="let item of (displayItems | filter:filterString:'storageType' |
             filter:searchfields.name:'name':true | filter:searchfields.brand:'brand':true |
             filter:searchfields.expDate:'expDate':true | filter:searchfields.quantity:'quantity':true |
             filter:searchfields.tags:'tags':true),
@@ -20,13 +21,10 @@
         </app-food-item>
       </span>
   </div>
-</div>
-<div class="row">
+
   <div class="col-xs-12">
-
-
     <div *ngIf="expirationMode">
-        <div *ngFor="let item of foodItems | filterDates:filterDate |
+        <div *ngFor="let item of displayItems | filterDates:filterDate |
         filter:searchfields.name:'name':true | filter:searchfields.brand:'brand':true |
         filter:searchfields.expDate:'expDate':true | filter:searchfields.quantity:'quantity':true |
         filter:searchfields.tags:'tags':true, let i = index"
@@ -36,6 +34,8 @@
         </div>
     </div>
   </div>
+
 </div>
 
 </div>
+<mat-paginator *ngIf="displayItems.length > 0" [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="pageSizeOptions" [pageIndex]="currentPage" (page)="onPageChanged($event)" color="accent"></mat-paginator>

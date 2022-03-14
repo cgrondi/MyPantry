@@ -6,6 +6,7 @@ import { searchFields } from "./search-box/search-fields.model";
 export class informationService {
     private filterDate: Date;
     private searchFields: searchFields;
+    private activeTab: string;
 
     searchFieldsChanged = new Subject<searchFields>();
 
@@ -18,6 +19,11 @@ export class informationService {
         // console.log('Info Service filterDate set to: ' + this.filterDate);
     }
 
+    getSearchFields() {
+        let copy = this.searchFields;
+        return copy;
+    }
+
     setSearchFields(input: searchFields) {
         this.searchFields = input;
         // console.log('new search fields = ')
@@ -25,8 +31,11 @@ export class informationService {
         this.searchFieldsChanged.next(this.searchFields);
     }
 
-    getSearchFields() {
-        let copy = this.searchFields;
-        return copy;
+    getActiveTab() {
+      return this.activeTab;
+    }
+
+    setActiveTab(newTab: string){
+      this.activeTab = newTab;
     }
 }

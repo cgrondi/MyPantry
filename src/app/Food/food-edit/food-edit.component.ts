@@ -36,9 +36,12 @@ export class FoodEditComponent implements OnInit, OnDestroy {
     //     console.log(this.editMode);
     //   }
     // );
+    console.log("Activated route as seen by food-edit component = " + this.route.toString())
     this.isLoading = true;
     this.subscription = this.route.paramMap.subscribe( (paramMap: ParamMap) => {
+      console.log(this.route)
       if(paramMap.has('id')){
+        console.log("ParamMap has id")
         this.editMode = true;
         this.id = paramMap.get('id');
         this.foodItemService.getItem(this.id).subscribe(foodData => {
@@ -48,6 +51,8 @@ export class FoodEditComponent implements OnInit, OnDestroy {
         });
       }
       else{
+        this.isLoading = false;
+        console.log("ParamMap does not have id")
         this.editMode = false;
         this.id = null;
         this.initForm();

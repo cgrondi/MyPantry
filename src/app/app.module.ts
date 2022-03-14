@@ -15,13 +15,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './filter.pipe';
 import { FilterDatesPipe } from './filter-dates.pipe';
 import { ListTabComponent } from './list-tab/list-tab.component';
-// import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //?
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //Necessary for dropdown menu of paginator
 
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule}  from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 
 import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
@@ -47,10 +48,11 @@ import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    // NoopAnimationsModule, //?
+    NoopAnimationsModule, //Necessary for dropdown of paginator
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     HttpClientModule
   ],
   providers: [],

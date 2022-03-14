@@ -5,6 +5,7 @@ import { environment } from "src/environments/environment";
 import { FoodItem } from "./foodItem.model";
 import { map } from 'rxjs/operators'
 import { Router } from "@angular/router";
+import { informationService } from "../shared/information.service";
 
 
 
@@ -205,7 +206,7 @@ export class FoodItemService implements OnInit {
     // ];
     private URL = environment.apiUrl + '/food';
 
-    constructor(private http: HttpClient, private router: Router){}
+    constructor(private http: HttpClient, private router: Router, private infoService: informationService){}
 
     ngOnInit(): void {
         this.nextId = this.items.length + 1;
@@ -213,8 +214,10 @@ export class FoodItemService implements OnInit {
     }
 
 
-    getItems() {
-      this.http.get<{message: string, food: any}>(this.URL)
+    getItems(filterString: string) {
+      console.log('getItems receives: ' + filterString);
+      const queryParams = `?filterString=${filterString}`;
+      this.http.get<{message: string, food: any}>(this.URL + queryParams)
       .pipe(map(foodData => {
         return foodData.food.map(foodItem => {
           return {
@@ -233,6 +236,8 @@ export class FoodItemService implements OnInit {
       }))
       .subscribe((transformedFood) => {
         this.items = transformedFood;
+        console.log('Food Service sends out this array: ')
+        console.log(this.items)
         this.itemsChanged.next([...this.items]);
       }, err => {
         console.log(err);
@@ -266,7 +271,7 @@ export class FoodItemService implements OnInit {
           .subscribe(responseData => {
             this.itemsChanged.next(this.items.slice());
             // this.nextId += 1;
-            this.getItems();
+            this.getItems(this.infoService.getActiveTab());
             console.log(responseData.message);
           }, err => {
             console.log(err);
@@ -300,7 +305,7 @@ export class FoodItemService implements OnInit {
     deleteItem(index: number) {
         this.http.delete(this.URL + '/' + index)
           .subscribe( () => {
-            this.getItems();
+            this.getItems(this.infoService.getActiveTab());
             console.log("Deleted!");
           })
     }

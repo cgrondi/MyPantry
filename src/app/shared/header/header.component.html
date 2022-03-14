@@ -9,13 +9,13 @@
     <div class="col-xs-3">
         <ul class="nav nav-tabs">
             <li class="nav-item" [ngClass]="{'active': activeTab === 'pantry' }">
-                <a class="nav-link" [routerLink]='["pantry"]' (click)="setActiveTab('pantry')">Pantry</a>
+                <a class="nav-link" [routerLink]='["tabs/pantry"]' (click)="setActiveTab('pantry')">Pantry</a>
             </li>
             <li class="nav-item" [ngClass]="{'active': activeTab === 'freezer' }">
-                <a class="nav-link" [routerLink]='["freezer"]' (click)="setActiveTab('freezer')">Freezer</a>
+                <a class="nav-link" [routerLink]='["tabs/freezer"]' (click)="setActiveTab('freezer')">Freezer</a>
             </li>
             <li class="nav-item" [ngClass]="{'active': activeTab === 'impendingExpiration' }">
-                <a class="nav-link" [routerLink]='["impendingExpiration"]'
+                <a class="nav-link" [routerLink]='["tabs/impendingExpiration"]'
                     (click)="setActiveTab('impendingExpiration')">Impending Expiration</a>
             </li>
         </ul>

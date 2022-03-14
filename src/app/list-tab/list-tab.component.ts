@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { informationService } from '../shared/information.service';
 
 @Component({
@@ -16,7 +16,14 @@ export class ListTabComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private infoService: informationService) { }
 
   ngOnInit(): void {
-    this.impendingExpirationMode = this.route.toString().includes('impendingExpiration');
+    // this.impendingExpirationMode = this.route.toString().includes('impendingExpiration');
+
+    this.route.paramMap.subscribe( (paramMap: ParamMap) => {
+      if(paramMap.has('tab')){
+
+        this.impendingExpirationMode = (paramMap.get('tab') === 'impendingExpiration');
+      }
+    })
 
     if (this.infoService.getFilterDate()) {
       this.filterDate = this.infoService.getFilterDate()
