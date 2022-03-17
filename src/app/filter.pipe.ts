@@ -10,23 +10,17 @@ export class FilterPipe implements PipeTransform {
       return value;
     }
     if (filter === null) {
-      // console.log('filter ' + propName + " has been passed null. returning value of ");
-      // console.log(value);
       return value;
     }
     const resultArray = [];
     if (contains) {
       for (const item of value) {
         if (propName === 'expDate') {
-          // console.log('item[expDate]= ' + item[propName]);
-          // console.log('createDate(filter = ' + this.createDate(filter));
-          // console.log('T/F = ' + (item[propName] < this.createDate(filter)))
           if (item[propName] < this.createDate(filter)) {
             resultArray.push(item);
           }
         }
         else if (propName === 'quantity') {
-          // console.log('Quantity checking');
           if (item[propName] < +filter) {
             resultArray.push(item);
           }

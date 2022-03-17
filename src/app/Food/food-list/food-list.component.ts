@@ -20,7 +20,6 @@ export class FoodListComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   expirationMode: boolean;
   filterDate: Date;
-  // startDate: string;
   totalItems = 4;
   itemsPerPage = 3;
   currentPage = 0;
@@ -44,27 +43,21 @@ export class FoodListComponent implements OnInit, OnDestroy {
     else {
       let today = new Date();
       this.filterDate = new Date(+today.getFullYear().toString(), today.getMonth() + 1, today.getDate());
-      // console.log('Food list initial filterDate: ' + this.filterDate);
       this.infoService.setFilterDate(this.filterDate);
     }
-            // Check here if ERRRORS
-    //  //  I think this is no longer needed. only reference to it i found was a commented out portion of the html file.
-    // this.startDate = this.filterDate.getFullYear().toString() + '-' + (this.filterDate.getMonth()).toString().padStart(2, '0') + '-' + this.filterDate.getDate().toString().padStart(2, '0');
-
 
     //  //  Set up subscription to paramMap for setting activeTab and filterstring
     this.route.paramMap.subscribe( (paramMap: ParamMap) => {
       if(paramMap.has('tab')){
         this.expirationMode = (paramMap.get('tab') === 'impendingExpiration');
         if(this.activeTab != paramMap.get('tab')){
-          this.isLoading = true;  //Thought here is to set it true here and false in the items changed sub
+          this.isLoading = true;
           this.infoService.setActiveTab(paramMap.get('tab'));
           this.currentPage = 0;
           if(paramMap.get('tab') != 'impendingExpiration'){
             this.filterString = paramMap.get('tab');
             this.filterString = this.filterString.charAt(0).toUpperCase() + this.filterString.slice(1);
             this.activeTab = paramMap.get('tab');
-            // console.log('getItems is given: ' + this.activeTab);
             this.foodItemService.getItems(this.activeTab);
           }
           else{
@@ -75,17 +68,6 @@ export class FoodListComponent implements OnInit, OnDestroy {
       }
     })
 
-    // this.expirationMode = (this.route.toString()).includes('impendingExpiration')
-    // if ((this.route.toString()).includes('pantry')) {
-    //   this.filterString = "Pantry";
-    // }
-    // else if ((this.route.toString()).includes('freezer')) {
-    //   this.filterString = "Freezer";
-    // }
-    // else {
-    //   // console.log("This route doesn't contain pantry nor freezer")
-    // }
-
     this.isLoading = true;
     //  //  Set up subscription to foodItemsService for when list of foodItems changes
     this.itemsChangedSub = this.foodItemService.getItemsUpdatedListener().subscribe(
@@ -95,7 +77,6 @@ export class FoodListComponent implements OnInit, OnDestroy {
         this.totalItems = this.foodItems.length;
         this.pageSizeOptions = [...new Set([1, 2, 4, 6, 10, 20, this.totalItems])];
         this.displayItems = this.foodItems.slice(this.itemsPerPage*(this.currentPage), (this.itemsPerPage*(this.currentPage+1)));
-        // console.log(this.displayItems);
       }
     )
 
@@ -124,12 +105,10 @@ export class FoodListComponent implements OnInit, OnDestroy {
     let dateArray = date.split('-');
     this.filterDate = new Date(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
     this.infoService.setFilterDate(this.filterDate);
-    // console.log(this.filterDate)
   }
 
   compareDate(date: Date, numWeeks: number) {
     let compareDate = new Date(this.filterDate.getFullYear(), this.filterDate.getMonth(), this.filterDate.getDate() - 7 * numWeeks);
-    // console.log(compareDate)
     if (date < compareDate) {
       return true;
     }
@@ -140,25 +119,11 @@ export class FoodListComponent implements OnInit, OnDestroy {
 
   onPageChanged(pageData: PageEvent){
     this.currentPage = +pageData.pageIndex;
-    // console.log(this.currentPage);
     this.itemsPerPage = pageData.pageSize;
-    // console.log('pageSize: ' + this.itemsPerPage + ', page: ' + this.currentPage);
-    // this.foodItemService.getItems(this.activeTab);
-    // this.displayItems = this.foodItems;
     this.totalItems = this.foodItems.length;  //? Should this be displayItems.length
     this.pageSizeOptions = [...new Set([1, 2, 4, 6, 10, 20, this.totalItems])];
-    // console.log('page event food items: ')
-    // console.log(this.foodItems)
-    // this.displayItems = this.foodItems.slice(pageData.pageSize*(pageData.pageIndex), (pageData.pageSize*pageData.pageIndex+1)-1);
-
-    // this.displayItems = this.foodItems.slice(pageData.pageSize*(pageData.pageIndex), (pageData.pageSize*(pageData.pageIndex+1)));  // Last working line
     this.displayItems = this.foodItems.slice(this.itemsPerPage*(this.currentPage), (this.itemsPerPage*(this.currentPage+1)));
-
     const test: number = pageData.pageIndex + 1
-    // console.log("foodItems.slice("+this.itemsPerPage+'*('+this.currentPage+'), ('+this.itemsPerPage+'*('+ this.currentPage + '+'+1 +'))')
-    // console.log('page event output: ')
-    // console.log(this.displayItems)
-    // console.log(this.foodItems.slice(0,3));
   }
 
 

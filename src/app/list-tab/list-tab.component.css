@@ -4,8 +4,6 @@
 
 .scrollable {
   overflow-y: hidden;
-  /* height: 70vh; */
-  /* width: 99%; */
 }
 .card {
   background: #ffff;
@@ -18,11 +16,7 @@
   border: 0;
   height: 46px;
   margin-left: 15%;
-  /* width: 56%; */
-  /* width = 56% OR */
-  /* disable width, margin-left ~12% */
   background-image: url(../../assets/images/LeafyVine2.png);
-  /* margin: auto; */
   background-repeat: no-repeat;
 }
 
@@ -49,5 +43,4 @@
 .form-child {
   display: inline;
   margin-right: 1%;
-  /* float: left; */
 }

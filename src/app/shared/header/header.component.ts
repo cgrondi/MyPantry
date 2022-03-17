@@ -43,32 +43,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-      //  //  This if/else block just initializes the activeTab property when site first loads up
-    // if (this.location.path().includes('pantry')) {
-    //   this.activeTab = 'pantry';
-    // }
-    // else if (this.location.path().includes('freezer')) {
-    //   this.activeTab = 'freezer';
-    // }
-    // else if (this.location.path().includes('impendingExpiration')) {
-    //   this.activeTab = 'impendingExpiration';
-    // }
-    // else {
-    //   //  // If it doesn't contain these things then we are probably in an auth page.
-    //   // console.log("ERROR: Route does not contain Pantry, Freezer, or ImpendingExpiration. ERROR in Header Component.")
-    // }
-
     this.authListenerSub = this.authService.getAuthStatusListener().subscribe( isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated
     });
 
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
   }
-
-  //  //  made obsolete by router subscription seen in ngOninit
-  // setActiveTab(activeTab: string) {
-  //   this.activeTab = activeTab;
-  // }
 
   onLogout(){
     this.authService.logout();
@@ -78,7 +58,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.authListenerSub.unsubscribe();
       this.routerSub.unsubscribe();
   }
-
-
-
 }

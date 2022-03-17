@@ -34,17 +34,8 @@ export class SearchBoxComponent implements OnInit {
     this.brand = this.searchForm.value.brand;
     this.expDate = this.searchForm.value.expDate;
     this.quantity = this.searchForm.value.quantity;
-
     this.needsInput = false;
-    // console.log(this.searchForm.value);
     this.infoService.setSearchFields(this.searchForm.value);
-
-    // if (this.name === null && this.brand === null && this.expDate === null && this.quantity == null && this.tags.length === 0) {
-    //   this.needsInput = true;
-    //   console.log('Search form empty');
-    // }
-    // else {
-    // }
   }
 
   onAddTag() {

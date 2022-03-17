@@ -1,5 +1,4 @@
 const express = require('express');
-// const food = require('../models/food');
 const Food = require('../models/food');
 const checkAuth = require('../middleware/check-auth');
 const foodRoutes = require('../controllers/food');

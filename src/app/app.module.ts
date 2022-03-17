@@ -16,7 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './filter.pipe';
 import { FilterDatesPipe } from './filter-dates.pipe';
 import { ListTabComponent } from './list-tab/list-tab.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //Necessary for dropdown menu of paginator
 
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -60,8 +59,7 @@ import { ErrorComponent } from './error/error.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    // NoopAnimationsModule, //Necessary for dropdown of paginator BUT disables mat-spinner. Where did this come from?
-    BrowserAnimationsModule,  //Enables you to use both dropdown of paginator and mat-spinner
+    BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,

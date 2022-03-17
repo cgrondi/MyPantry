@@ -16,7 +16,6 @@ export class informationService {
 
     setFilterDate(newDate: Date) {
         this.filterDate = newDate;
-        // console.log('Info Service filterDate set to: ' + this.filterDate);
     }
 
     getSearchFields() {
@@ -26,8 +25,6 @@ export class informationService {
 
     setSearchFields(input: searchFields) {
         this.searchFields = input;
-        // console.log('new search fields = ')
-        // console.log(input);
         this.searchFieldsChanged.next(this.searchFields);
     }
 

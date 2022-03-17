@@ -13,7 +13,6 @@ export class FoodItemComponent implements OnInit, OnDestroy {
 
   atOne = true;
   userIsAuthenticated: boolean = false;
-  // word = 'search';
 
   private authListenerSub: Subscription;
 

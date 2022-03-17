@@ -30,7 +30,6 @@ mat-spinner {
   background: rgba(255, 115, 0, 0.5);
 }
 .red-box {
-  /* background-color: red; */
   border: 1px solid rgb(255, 0, 0);
   background: rgba(255, 0, 0, 0.5);
 }

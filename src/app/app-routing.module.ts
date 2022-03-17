@@ -11,32 +11,6 @@ import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes = [
     { path: '', redirectTo: 'tabs/pantry', pathMatch: 'full' },
-    // {
-    //     path: 'pantry', component: ListTabComponent, children: [
-    //         { path: '', component: InfoStartComponent },
-    //         { path: 'search', component: SearchBoxComponent },
-    //         { path: 'new', component: FoodEditComponent },
-    //         { path: ':id', component: FoodDetailComponent },
-    //         { path: ':id/edit', component: FoodEditComponent }
-    //     ]
-    // },
-    // {
-    //     path: 'freezer', component: ListTabComponent, children: [
-    //         { path: '', component: InfoStartComponent },
-    //         { path: 'search', component: SearchBoxComponent },
-    //         { path: 'new', component: FoodEditComponent },
-    //         { path: ':id', component: FoodDetailComponent },
-    //         { path: ':id/edit', component: FoodEditComponent }
-    //     ]
-    // },
-    // {
-    //     path: 'impendingExpiration', component: ListTabComponent, children: [
-    //         { path: '', component: InfoStartComponent },
-    //         { path: 'search', component: SearchBoxComponent },
-    //         { path: ':id', component: FoodDetailComponent }
-
-    //     ]
-    // },
     {
       path: 'tabs/:tab', component: ListTabComponent, children: [
         { path: '', component: InfoStartComponent },

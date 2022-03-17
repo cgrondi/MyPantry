@@ -55,16 +55,7 @@ exports.getItems = (req, res, next) => {
     filterString = filterString.charAt(0).toUpperCase() + filterString.slice(1);
     filter = { "storageType": filterString };
   }
-  // console.log(filter);
-  // const foodQuery = Food.find();
-  // if(pageSize && currentPage){
-  //   foodQuery
-  //     .skip(pageSize * (currentPage-1))
-  //     .limit(pageSize);
-  // }
-  // foodQuery.then(documents => {
   Food.find(filter).then(documents => {
-    // console.log(documents)
     res.status(200).json({
       message: "Food items fetched successfully",
       food: documents
@@ -97,7 +88,6 @@ exports.getItem = (req, res, next) => {
 }
 
 exports.deleteItem = (req, res, next) => {
-  // console.log(req.params.id);
   Food.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({

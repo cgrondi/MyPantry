@@ -45,14 +45,13 @@ export class AuthComponent implements OnInit, OnDestroy{
     console.log("OnSubmit called")
     if(form.invalid){
       console.log("Form invalid. returning")
-      return
+      return;
     }
     this.isLoading = true;
     if(this.signupMode){
       this.authService.createNewUser(form.value.email, form.value.password);
     }
     else{
-      // console.log("AuthComponent calling login")
       this.authService.login(form.value.email, form.value.password);
     }
     form.resetForm();
