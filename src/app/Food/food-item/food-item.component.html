@@ -1,17 +1,18 @@
-<div class="row">
+
+<div class="row food-item-row">
     <div class="col-xs-11">
-        <a style="cursor: pointer" [routerLink]="[index]" class="list-group-item">
+        <a style="cursor: pointer" [routerLink]="[index]" class="list-group-item food-item-row">
             <div class="row">
-                <div class="col-xs-3">{{ item.name }}</div>
-                <div class="col-xs-3">{{ item.brand }}</div>
-                <div class="col-xs-2">{{ item.size }}</div>
-                <div class="col-xs-2">
-                    <button class="btn" (click)="onSubtract()" [disabled]="atOne">-</button>
+                <div class="col-xs-3 food-item-text">{{ (item.name.length>32)? (item.name | slice:0:30)+'..':(item.name) }}</div>
+                <div class="col-xs-3 food-item-text">{{ (item.brand.length>32)? (item.brand | slice:0:30)+'..':(item.brand) }}</div>
+                <div class="col-xs-2 food-item-text">{{ (item.size.length>28)? (item.size | slice:0:26)+'..':(item.size) }}</div>
+                <div class="col-xs-2 food-item-text text-center">
+                    <!-- <button class="btn" (click)="onSubtract()" [disabled]="atOne">-</button> -->
                     {{ item.quantity }}
-                    <button class="btn" (click)="onAdd()">+</button>
+                    <!-- <button class="btn" (click)="onAdd()">+</button> -->
                 </div>
-                <div *ngIf="!checkDate(item.expDate)" class="col-xs-1">{{ item.expDate | date}}</div>
-                <div *ngIf="checkDate(item.expDate)" class="expired col-xs-1">Expired</div>
+                <div *ngIf="!checkDate(item.expDate)" class="col-xs-2 food-item-text">{{ item.expDate | date}}</div>
+                <div *ngIf="checkDate(item.expDate)" class=" col-xs-2 food-item-text"><span class="expired">Expired</span></div>
 
             </div>
         </a>

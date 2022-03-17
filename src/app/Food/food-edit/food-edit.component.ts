@@ -80,15 +80,17 @@ export class FoodEditComponent implements OnInit, OnDestroy {
       }
     }
     this.foodForm = new FormGroup({
-      'name': new FormControl(name, Validators.required),
-      'brand': new FormControl(brand, Validators.required),
+      'name': new FormControl(name, [Validators.required, Validators.maxLength(60)]),
+      'brand': new FormControl(brand, [Validators.required, Validators.maxLength(60)]),
       'quantity': new FormControl(quantity, [Validators.required, Validators.min(0)]),
       'expDate': new FormControl(datestring, Validators.required),
-      'size': new FormControl(size, Validators.required),
-      'location': new FormControl(location, Validators.required),
+      'size': new FormControl(size, [Validators.required, Validators.maxLength(60)]),
+      'location': new FormControl(location, [Validators.required, Validators.maxLength(60)]),
       'storageType': new FormControl(storageType),
       'tags': tags
     });
+
+
   }
 
   onCancel() {

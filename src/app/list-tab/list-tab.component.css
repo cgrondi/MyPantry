@@ -25,6 +25,9 @@
   padding-left: 1%;
   border-bottom: 2px solid #2e7d32;
 }
+.labels-row {
+  width: 100%;
+}
 .col-label {
   padding-right: 1%;
   padding-top: 1%;

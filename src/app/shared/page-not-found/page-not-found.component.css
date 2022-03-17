@@ -1,0 +1,17 @@
+.not-found-text {
+  margin: auto;
+  color: #2e7d32;
+  font-weight: bolder;
+  padding-bottom: 5%;
+}
+
+.not-found-row {
+  padding-top: 2%;
+}
+
+mat-card {
+  margin: auto;
+  margin-top: 3%;
+  background-color: #e2ddca;
+  width: 50%;
+}

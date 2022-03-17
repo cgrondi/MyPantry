@@ -4,14 +4,20 @@
           <div class="col-xs-4">
               <label for="name">Food Name: </label>
               <input type="text" id="name" class="form-control" formControlName="name">
+              <mat-error *ngIf="foodForm.get('name').hasError('maxlength')">The maximum length for this field is {{foodForm.get('name').errors.maxlength.requiredLength}} characters.</mat-error>
+              <mat-error *ngIf="foodForm.get('name').hasError('required') && foodForm.get('name').touched">This field is required.</mat-error>
           </div>
           <div class="col-xs-4">
               <label for="brand">Brand Name: </label>
               <input type="text" id="brand" class="form-control" formControlName="brand">
+              <mat-error *ngIf="foodForm.get('brand').hasError('maxlength')">The maximum length for this field is {{foodForm.get('brand').errors.maxlength.requiredLength}} characters.</mat-error>
+              <mat-error *ngIf="foodForm.get('brand').hasError('required') && foodForm.get('brand').touched">This field is required.</mat-error>
           </div>
           <div class="col-xs-2">
               <label for="quantity">Quantity: </label>
               <input type="number" id="quantity" class="form-control" formControlName="quantity">
+              <mat-error *ngIf="foodForm.get('quantity').hasError('min')">The minimum amount for this field is 0.</mat-error>
+
           </div>
           <div class="col-xs-2">
               <label for="expDate">Expiration Date</label>
@@ -22,10 +28,14 @@
           <div class="col-xs-4">
               <label for="size">Size: </label>
               <input type="text" id="size" class="form-control" formControlName="size">
+              <mat-error *ngIf="foodForm.get('size').hasError('maxlength')">The maximum length for this field is {{foodForm.get('size').errors.maxlength.requiredLength}} characters.</mat-error>
+              <mat-error *ngIf="foodForm.get('size').hasError('required') && foodForm.get('size').touched">This field is required.</mat-error>
           </div>
           <div class="col-xs-4">
               <label>Location: </label>
               <input type="text" id="location" class="form-control" formControlName="location">
+              <mat-error *ngIf="foodForm.get('location').hasError('maxlength')">The maximum length for this field is {{foodForm.get('location').errors.maxlength.requiredLength}} characters.</mat-error>
+              <mat-error *ngIf="foodForm.get('location').hasError('required') && foodForm.get('location').touched">This field is required.</mat-error>
           </div>
           <div class="col-xs-4">
               <label>Storage: </label>
