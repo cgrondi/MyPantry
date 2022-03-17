@@ -42,3 +42,7 @@ div {
   font-family: cursive;
   font-size: 2rem;
 }
+
+.notecard-spacing {
+  line-height: 145%;
+}
