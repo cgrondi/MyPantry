@@ -5,19 +5,26 @@
     <!-- <img class="cornerDecoration" src="../../../assets/images/GrapeVineCornerSharp.png" alt="GrapeVineCorner"> -->
   </div>
 </div>
-<div class="row">
+<div class="row mat-app-background">
     <div class="col-xs-3">
         <ul class="nav nav-tabs">
             <li class="nav-item" [ngClass]="{'active': activeTab === 'pantry' }">
-                <a class="nav-link" [routerLink]='["tabs/pantry"]' (click)="setActiveTab('pantry')">Pantry</a>
+                <a class="nav-link tab-link" [routerLink]='["tabs/pantry"]' >Pantry</a>
             </li>
             <li class="nav-item" [ngClass]="{'active': activeTab === 'freezer' }">
-                <a class="nav-link" [routerLink]='["tabs/freezer"]' (click)="setActiveTab('freezer')">Freezer</a>
+                <a class="nav-link tab-link" [routerLink]='["tabs/freezer"]' >Freezer</a>
             </li>
             <li class="nav-item" [ngClass]="{'active': activeTab === 'impendingExpiration' }">
-                <a class="nav-link" [routerLink]='["tabs/impendingExpiration"]'
-                    (click)="setActiveTab('impendingExpiration')">Impending Expiration</a>
+                <a class="nav-link tab-link" [routerLink]='["tabs/impendingExpiration"]'>Impending Expiration</a>
             </li>
         </ul>
+    </div>
+    <div class="col-xs-6"></div>
+    <div class="col-xs-1">
+      <a class="auth-button" mat-flat-button routerLink="/auth/login" *ngIf="!userIsAuthenticated">Login</a>
+      <button type="button" mat-flat-button class="auth-button" *ngIf="userIsAuthenticated" (click)="onLogout()">Logout</button>
+    </div>
+    <div class="col-xs-1">
+      <a class="auth-button" mat-flat-button routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a>
     </div>
 </div>

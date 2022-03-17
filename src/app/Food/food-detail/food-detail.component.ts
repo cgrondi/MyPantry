@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { FoodItem } from '../foodItem.model';
 import { FoodItemService } from '../foodItem.service';
 
@@ -11,9 +12,10 @@ import { FoodItemService } from '../foodItem.service';
 })
 export class FoodDetailComponent implements OnInit, OnDestroy {
   foodItem: FoodItem;
-  subscription: Subscription;
+  paramSub: Subscription;
   id: string;
   ready: boolean = false;
+  userIsAuthenticated: boolean = false;
 
   name = "";
   brand = "";
@@ -22,10 +24,12 @@ export class FoodDetailComponent implements OnInit, OnDestroy {
   location = "";
   description = "";
 
-  constructor(private foodItemService: FoodItemService, private route: ActivatedRoute, private router: Router) { }
+  private authListenerSub: Subscription;
+
+  constructor(private foodItemService: FoodItemService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.subscription = this.route.params.subscribe(
+    this.paramSub = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
         this.foodItemService.getItem(this.id).subscribe(foodData => {
@@ -34,10 +38,17 @@ export class FoodDetailComponent implements OnInit, OnDestroy {
         });
       }
     );
+
+    this.authListenerSub = this.authService.getAuthStatusListener().subscribe( isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
+    this.userIsAuthenticated = this.authService.getIsAuthenticated();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.paramSub.unsubscribe();
+    this.authListenerSub.unsubscribe();
   }
 
   onEdit() {

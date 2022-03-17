@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { FoodItemComponent } from './Food/food-item/food-item.component';
@@ -17,15 +18,24 @@ import { FilterDatesPipe } from './filter-dates.pipe';
 import { ListTabComponent } from './list-tab/list-tab.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; //Necessary for dropdown menu of paginator
 
-import { HttpClientModule } from '@angular/common/http';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule}  from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
+import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
+
 
 @NgModule({
   declarations: [
@@ -38,9 +48,11 @@ import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
     PageNotFoundComponent,
     HeaderComponent,
     FoodEditComponent,
+    ListTabComponent,
+    AuthComponent,
+    ErrorComponent,
     FilterPipe,
     FilterDatesPipe,
-    ListTabComponent,
     ReorderTags
   ],
   imports: [
@@ -48,14 +60,22 @@ import { ReorderTags } from './Food/food-detail/reorderItems.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NoopAnimationsModule, //Necessary for dropdown of paginator
+    // NoopAnimationsModule, //Necessary for dropdown of paginator BUT disables mat-spinner. Where did this come from?
+    BrowserAnimationsModule,  //Enables you to use both dropdown of paginator and mat-spinner
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

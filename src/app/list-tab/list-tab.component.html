@@ -1,7 +1,8 @@
+<div class="container">
 <div class="row">
     <div class="col-xs-2 scrollable">
         <button mat-raised-button color="accent" (click)="onSearch()">Search</button>
-        <button *ngIf="!impendingExpirationMode" mat-raised-button color="accent" type="button" (click)="onAddItem()">Add
+        <button *ngIf="!impendingExpirationMode && userIsAuthenticated" mat-raised-button color="accent" type="button" (click)="onAddItem()">Add
             Item</button>
           </div>
           <div class="col-xs-10">
@@ -52,3 +53,4 @@
       </div>
   </div>
 </mat-card>
+</div>

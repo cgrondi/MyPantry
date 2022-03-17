@@ -1,18 +1,25 @@
 .row {
   background-color: rgb(175, 159, 129);
 }
-li.active a {
+li.active .tab-link {
   background-color: #fff9e6;
   color: #2e7d32;
   font-weight: bolder;
 }
-a {
+.tab-link {
   background-color: #e2ddca;
   font-weight: bold;
   color: #2e7d32;
 }
 ul {
   background-color: rgb(175, 159, 129);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+a {
+  text-decoration: none;
 }
 .logo {
   background-color: rgb(175, 159, 129);
@@ -41,4 +48,24 @@ ul {
   position: absolute;
   bottom: -110px;
   right: 25px;
+}
+
+.auth-button {
+  position: absolute;
+  bottom: 0%;
+  /* right: 55%; */
+  /* padding: 1%;
+  margin-bottom: 2%; */
+  font-size: 2em;
+  color: #2e7d32;
+  /* background-color: #fff9e6; */
+  background-color: rgb(175, 159, 129);
+}
+.auth-button:hover,
+.auth-button:focus,
+.auth-button:active {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: rgb(148, 135, 112);
 }

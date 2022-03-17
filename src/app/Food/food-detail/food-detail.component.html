@@ -51,7 +51,7 @@
 <div class="row card-row">
   <div class="col-xs-11"></div>
   <div class="col-xs-1">
-      <button mat-raised-button color="accent" (click)="onEdit()">Edit</button>
+      <button mat-raised-button color="accent" (click)="onEdit()" *ngIf="userIsAuthenticated">Edit</button>
   </div>
 </div>
 <div class="blueline"></div>

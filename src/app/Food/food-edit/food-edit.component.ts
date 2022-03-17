@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { FoodItem } from '../foodItem.model';
 import { FoodItemService } from '../foodItem.service';
 
@@ -16,10 +17,11 @@ export class FoodEditComponent implements OnInit, OnDestroy {
   foodItem: FoodItem;
   foodForm: FormGroup;
   initialTags = [];
-  subscription: Subscription;
   editMode = false;
   isLoading = false;
 
+  private paramSub: Subscription;
+  private itemsStatusSub: Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute, private foodItemService: FoodItemService) { }
 
@@ -38,10 +40,11 @@ export class FoodEditComponent implements OnInit, OnDestroy {
     // );
     console.log("Activated route as seen by food-edit component = " + this.route.toString())
     this.isLoading = true;
-    this.subscription = this.route.paramMap.subscribe( (paramMap: ParamMap) => {
-      console.log(this.route)
+
+    this.paramSub = this.route.paramMap.subscribe( (paramMap: ParamMap) => {
+      // console.log(this.route)
       if(paramMap.has('id')){
-        console.log("ParamMap has id")
+        // console.log("ParamMap has id")
         this.editMode = true;
         this.id = paramMap.get('id');
         this.foodItemService.getItem(this.id).subscribe(foodData => {
@@ -52,16 +55,16 @@ export class FoodEditComponent implements OnInit, OnDestroy {
       }
       else{
         this.isLoading = false;
-        console.log("ParamMap does not have id")
+        // console.log("ParamMap does not have id")
         this.editMode = false;
         this.id = null;
         this.initForm();
       }
-    })
-  }
+    });
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.itemsStatusSub = this.foodItemService.getItemsStatusListener().subscribe( itemsStatus => {
+      this.isLoading = itemsStatus;
+    })
   }
 
   initForm() {
@@ -112,6 +115,7 @@ export class FoodEditComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
+    this.isLoading = true;
     const dateOutput = this.foodForm.value.expDate;
     const newFoodItem = new FoodItem(this.foodForm.value.name, this.foodForm.value.brand, this.foodForm.value.quantity, this.foodForm.value.size, this.toDateObj(dateOutput), this.foodForm.value.location, this.foodForm.value.storageType, this.foodForm.value.tags, this.foodItem.id);
     this.foodItemService.updateItem(newFoodItem, this.id);
@@ -124,7 +128,7 @@ export class FoodEditComponent implements OnInit, OnDestroy {
   //IMPORTANT
   onAddItem() {
     const dateOutput = this.foodForm.value.expDate;
-    console.log("dateOutput = " + dateOutput)
+    // console.log("dateOutput = " + dateOutput)
     // console.log(dateOutput)
     // this.toDateObj(dateOutput);
     // let dateArray = dateOutput.split('-');
@@ -141,10 +145,10 @@ export class FoodEditComponent implements OnInit, OnDestroy {
     //format. Important to remember that we must subtract one from the month as date input is 1 indexed and Date
     //object months are 0 indexed.
   toDateObj(str: string) {
-    console.log("Input = " + str);
+    // console.log("Input = " + str);
     let dateArray = (<string[]>str.split('-'));
-    console.log('dateArray = ')
-    console.log(dateArray)
+    // console.log('dateArray = ')
+    // console.log(dateArray)
     return new Date(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
   }
 
@@ -159,6 +163,11 @@ export class FoodEditComponent implements OnInit, OnDestroy {
 
   getControl() {
     return (<FormArray>this.foodForm.get('tags')).controls;
+  }
+
+
+  ngOnDestroy(): void {
+    this.paramSub.unsubscribe();
   }
 
 }

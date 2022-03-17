@@ -1,0 +1,13 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+  color: #2e7d32;
+}
+
+.login-card {
+  margin-top: 2%;
+  color: #2e7d32;
+}

@@ -1,5 +1,6 @@
 {
   "env": {
-    "MONGO_ATLAS_PW": "pDWLxMoZBkbZaqee"
+    "MONGO_ATLAS_PW": "pDWLxMoZBkbZaqee",
+    "JWT_KEY": "A-l0ng_p@ssw0rD/MeAnt_2_B-fa1rly+d1ffIcuLt/2+H@Kc++Supp0sed*two_B+at/Le@sT_sqrt(1024)+ch@ar@cterz+L0NG./ThisShouldDoWellEnough."
   }
 }

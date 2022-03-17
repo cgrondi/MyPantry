@@ -8,8 +8,8 @@
         </form>
     </div>
 </div> -->
-
-<div class="row">
+<mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
+<div class="row" *ngIf="!isLoading">
 
   <div class="col-xs-12">
     <span *ngIf="!expirationMode">

@@ -12,6 +12,11 @@ mat-paginator {
   font-weight: 500;
 }
 
+mat-spinner {
+  margin: auto;
+  margin-top: 5%;
+}
+
 .clear-box {
   border: none;
   background: none;

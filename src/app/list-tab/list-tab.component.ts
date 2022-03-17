@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { informationService } from '../shared/information.service';
 
 @Component({
@@ -8,12 +10,15 @@ import { informationService } from '../shared/information.service';
   templateUrl: './list-tab.component.html',
   styleUrls: ['./list-tab.component.css']
 })
-export class ListTabComponent implements OnInit {
+export class ListTabComponent implements OnInit, OnDestroy {
   impendingExpirationMode: boolean;
   filterDate: Date;
   startDate: string;
+  userIsAuthenticated: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private infoService: informationService) { }
+  private authListenerSub: Subscription;
+
+  constructor(private router: Router, private route: ActivatedRoute, private infoService: informationService, private authService: AuthService) { }
 
   ngOnInit(): void {
     // this.impendingExpirationMode = this.route.toString().includes('impendingExpiration');
@@ -23,7 +28,14 @@ export class ListTabComponent implements OnInit {
 
         this.impendingExpirationMode = (paramMap.get('tab') === 'impendingExpiration');
       }
-    })
+    });
+
+    this.authListenerSub = this.authService.getAuthStatusListener().subscribe( isAuthenticated => {
+      console.log("list-tab isAuthenticated = " + isAuthenticated);
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
+    this.userIsAuthenticated = this.authService.getIsAuthenticated();
 
     if (this.infoService.getFilterDate()) {
       this.filterDate = this.infoService.getFilterDate()
@@ -54,6 +66,10 @@ export class ListTabComponent implements OnInit {
     this.filterDate = new Date(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
     this.infoService.setFilterDate(this.filterDate);
     // console.log(this.filterDate)
+  }
+
+  ngOnDestroy(): void {
+      this.authListenerSub.unsubscribe();
   }
 
 

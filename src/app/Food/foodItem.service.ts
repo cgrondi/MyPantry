@@ -12,7 +12,8 @@ import { informationService } from "../shared/information.service";
 @Injectable({ providedIn: 'root' })
 export class FoodItemService implements OnInit {
 
-    itemsChanged = new Subject<FoodItem[]>();
+    private itemsChanged = new Subject<FoodItem[]>();
+    private itemsStatusListener = new Subject<boolean>();
     nextId: number;
     private items: FoodItem[];
     // private items: FoodItem[] = [
@@ -210,12 +211,20 @@ export class FoodItemService implements OnInit {
 
     ngOnInit(): void {
         this.nextId = this.items.length + 1;
-        console.log("(foodItem.service)next id = " + this.nextId);
+        // console.log("(foodItem.service)next id = " + this.nextId);
+    }
+
+    getItemsUpdatedListener(){
+      return this.itemsChanged.asObservable();
+    }
+
+    getItemsStatusListener(){
+      return this.itemsStatusListener.asObservable();
     }
 
 
     getItems(filterString: string) {
-      console.log('getItems receives: ' + filterString);
+      // console.log('getItems receives: ' + filterString);
       const queryParams = `?filterString=${filterString}`;
       this.http.get<{message: string, food: any}>(this.URL + queryParams)
       .pipe(map(foodData => {
@@ -236,8 +245,8 @@ export class FoodItemService implements OnInit {
       }))
       .subscribe((transformedFood) => {
         this.items = transformedFood;
-        console.log('Food Service sends out this array: ')
-        console.log(this.items)
+        // console.log('Food Service sends out this array: ')
+        // console.log(this.items)
         this.itemsChanged.next([...this.items]);
       }, err => {
         console.log(err);
@@ -298,7 +307,10 @@ export class FoodItemService implements OnInit {
           updatedItems[oldItemIndex] = newItem;
           this.items = updatedItems;
           this.itemsChanged.next([...this.items]);
+
           // this.router.navigate(['/']);   //I go back and forth on whether this should be here. Future Cameron's problem
+        }, error => {
+          this.itemsStatusListener.next(false);
         })
     }
 

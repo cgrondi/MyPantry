@@ -6,6 +6,8 @@ import { PageNotFoundComponent } from "./shared/page-not-found/page-not-found.co
 import { SearchBoxComponent } from "./shared/search-box/search-box.component";
 import { InfoStartComponent } from "./shared/info-start/info-start.component";
 import { ListTabComponent } from "./list-tab/list-tab.component";
+import { AuthComponent } from "./auth/auth.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes = [
     { path: '', redirectTo: 'tabs/pantry', pathMatch: 'full' },
@@ -39,11 +41,12 @@ const appRoutes = [
       path: 'tabs/:tab', component: ListTabComponent, children: [
         { path: '', component: InfoStartComponent },
         { path: 'search', component: SearchBoxComponent },
-        { path: 'new', component: FoodEditComponent },
+        { path: 'new', component: FoodEditComponent, canActivate: [AuthGuard] },
         { path: ':id', component: FoodDetailComponent },
-        { path: ':id/edit', component: FoodEditComponent }
+        { path: ':id/edit', component: FoodEditComponent, canActivate: [AuthGuard] }
       ]
     },
+    { path:'auth/:authMode', component: AuthComponent },
     { path: 'search', component: SearchBoxComponent },
     { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found' }
@@ -51,6 +54,7 @@ const appRoutes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthGuard]
 })
 export class AppRoutingModule { }
