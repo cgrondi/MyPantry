@@ -11,7 +11,7 @@ export class FilterDatesPipe implements PipeTransform {
     }
     const resultArray = [];
     for (const item of value) {
-      if (item['expDate'] < filterDate) {
+      if (item['expDate'] > filterDate) {
         resultArray.push(item);
       }
     }

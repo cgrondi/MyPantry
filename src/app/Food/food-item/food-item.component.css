@@ -1,5 +1,11 @@
 .food-item-row {
-  height: 65px;
+  height: 70px;
+}
+
+.list-group-item {
+  display: inline-block;
+  width: 90%;
+  overflow: hidden;
 }
 
 .center-button {
@@ -15,4 +21,48 @@
 .food-item-text {
   font-weight: 400;
   font-size: 2rem;
+}
+
+.little-remove {
+  float: right;
+  min-width: 5px;
+  height: 70px;
+  width: 8%;
+  right: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .food-item-text {
+    font-size: 1.6rem;
+    overflow: hidden;
+  }
+
+  .expired-text {
+    font-size: 1.5rem;
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .food-item-text {
+    font-size: 1em;
+    /* padding: 0; */
+  }
+  .expired-text {
+    font-size: 0.8em;
+    padding: 1%;
+    right: 0;
+  }
+  .expired {
+    padding: 5%;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .list-group-item {
+    width: 84%;
+  }
+  .food-item-text {
+    padding: 0;
+  }
 }

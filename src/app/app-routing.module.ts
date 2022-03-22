@@ -5,8 +5,7 @@ import { FoodEditComponent } from "./Food/food-edit/food-edit.component";
 import { PageNotFoundComponent } from "./shared/page-not-found/page-not-found.component";
 import { SearchBoxComponent } from "./shared/search-box/search-box.component";
 import { InfoStartComponent } from "./shared/info-start/info-start.component";
-import { ListTabComponent } from "./list-tab/list-tab.component";
-import { AuthComponent } from "./auth/auth.component";
+import { ListTabComponent } from "./Food/list-tab/list-tab.component";
 import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes = [
@@ -20,8 +19,7 @@ const appRoutes = [
         { path: ':id/edit', component: FoodEditComponent, canActivate: [AuthGuard] }
       ]
     },
-    { path:'auth/:authMode', component: AuthComponent },
-    { path: 'search', component: SearchBoxComponent },
+    { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m =>  m.AuthModule ) },
     { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found' }
 ];

@@ -15,3 +15,16 @@ mat-card {
   background-color: #e2ddca;
   width: 50%;
 }
+.spacer {
+  background-color: #fff9e6;
+  padding: 3%;
+}
+
+.four-oh-four {
+  color: #2e7d32;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bolder;
+  font-family: math;
+  margin: 3%;
+}

@@ -1,4 +1,4 @@
-const app = require('./backend/app');  // !Change once server.js moves to backend!
+const app = require('./app');
 const debug = require("debug")("node-angular");
 const http = require("http");
 

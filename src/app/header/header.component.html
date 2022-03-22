@@ -18,12 +18,9 @@
             </li>
         </ul>
     </div>
-    <div class="col-xs-6"></div>
-    <div class="col-xs-1">
+    <div class="col-xs-auto auth-button-container">
       <a class="auth-button" mat-flat-button routerLink="/auth/login" *ngIf="!userIsAuthenticated">Login</a>
       <button type="button" mat-flat-button class="auth-button" *ngIf="userIsAuthenticated" (click)="onLogout()">Logout</button>
-    </div>
-    <div class="col-xs-1">
-      <a class="auth-button" mat-flat-button routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a>
+      <!-- <a class="auth-button" mat-flat-button routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a> -->
     </div>
 </div>

@@ -1,8 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FoodItem } from '../foodItem.model';
 import { FoodItemService } from '../foodItem.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-food-item',
@@ -11,21 +13,16 @@ import { FoodItemService } from '../foodItem.service';
 })
 export class FoodItemComponent implements OnInit, OnDestroy {
 
-  atOne = true;
   userIsAuthenticated: boolean = false;
 
   private authListenerSub: Subscription;
 
   @Input() item: FoodItem;
-  @Input() index: number;
+  @Input() index: string;
 
-  constructor(private foodItemService: FoodItemService, private authService: AuthService) { }
+  constructor(private foodItemService: FoodItemService, private authService: AuthService, private location: Location, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if (this.item.quantity > 0) {
-      this.atOne = false;
-    }
-
     this.authListenerSub = this.authService.getAuthStatusListener().subscribe( isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
@@ -33,20 +30,10 @@ export class FoodItemComponent implements OnInit, OnDestroy {
     this.userIsAuthenticated = this.authService.getIsAuthenticated();
   }
 
-  onAdd() {
-    if (this.item.quantity == 0) {
-      this.atOne = false;
-    }
-    this.item.quantity += 1;
-  }
-  onSubtract() {
-    if (this.item.quantity == 1) {
-      this.atOne = true;
-    }
-    this.item.quantity -= 1;
-  }
-
   onRemove() {
+    if(this.location.path().includes(this.index)){
+      this.router.navigate(['./'], {relativeTo: this.route});
+    }
     this.foodItemService.deleteItem(this.index);
   }
 

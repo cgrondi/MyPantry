@@ -2,29 +2,38 @@
   <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
   <div class="row" *ngIf="!isLoading">
 
-    <div class="col-xs-12">
-      <span *ngIf="!expirationMode">
-          <app-food-item *ngFor="let item of (displayItems | filter:filterString:'storageType' |
-              filter:searchfields.name:'name':true | filter:searchfields.brand:'brand':true |
-              filter:searchfields.expDate:'expDate':true | filter:searchfields.quantity:'quantity':true |
-              filter:searchfields.tags:'tags':true),
-              let i = index" [item]="item" [index]="item.id">
+    <div class="col-xs-12" *ngIf="!expirationMode">
+        <div *ngFor="let item of (displayItems | filter:filterString:'storageType' |
+        filter:searchfields.name:'name':true | filter:searchfields.brand:'brand':true |
+        filter:searchfields.expDate:'expDate':true | filter:searchfields.quantity:'quantity':true |
+        filter:searchfields.tags:'tags':true),
+        let i = index" class="clear-box">
+          <app-food-item  [item]="item" [index]="item.id">
           </app-food-item>
-        </span>
+        </div>
     </div>
 
-    <div class="col-xs-12">
-      <div *ngIf="expirationMode">
-          <div *ngFor="let item of displayItems | filterDates:filterDate |
+    <div class="col-xs-12" *ngIf="expirationMode">
+        <div *ngFor="let item of (displayItems | filterDates:filterDate |
+        filter:searchfields.name:'name':true | filter:searchfields.brand:'brand':true |
+        filter:searchfields.expDate:'expDate':true | filter:searchfields.quantity:'quantity':true |
+        filter:searchfields.tags:'tags':true),
+        let i = index" [ngClass]="addClasses(item.expDate)">
+          <app-food-item  [item]="item" [index]="item.id">
+          </app-food-item>
+        </div>
+    </div>
+
+    <!-- <div class="col-xs-12" *ngIf="expirationMode">
+          <div *ngFor="let item of (displayItems | filterDates:filterDate |
           filter:searchfields.name:'name':true | filter:searchfields.brand:'brand':true |
           filter:searchfields.expDate:'expDate':true | filter:searchfields.quantity:'quantity':true |
-          filter:searchfields.tags:'tags':true, let i = index"
-              [ngClass]="{'red-box': compareDate(item.expDate,3), 'orange-box': compareDate(item.expDate,2), 'yellow-box': compareDate(item.expDate, 1), 'clear-box': compareDate(item.expDate, 0)}">
+          filter:searchfields.tags:'tags':true),
+          let i = index" [ngClass]="addClasses(item.expDate)">
               <app-food-item [item]="item" [index]="item.id">
               </app-food-item>
           </div>
-      </div>
-    </div>
+    </div> -->
 
   </div>
 </div>

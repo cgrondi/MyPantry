@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { informationService } from 'src/app/shared/information.service';
 import { searchFields } from 'src/app/shared/search-box/search-fields.model';
 import { FoodItem } from '../foodItem.model';
@@ -21,15 +21,19 @@ export class FoodListComponent implements OnInit, OnDestroy {
   expirationMode: boolean;
   filterDate: Date;
   totalItems = 4;
-  itemsPerPage = 3;
+  itemsPerPage = 15;
   currentPage = 0;
-  pageSizeOptions = [...new Set([1, 2, 4, 6, 10, 20, this.totalItems])];  //When update options also change in itemsChanged sub and onPageChanged
+  pageSizeOptions = [...new Set([5, 10, 15, 20, this.totalItems])];
   private activeTab: string;
+
+  @Input() events: Observable<{name: string, value: number}>;
 
   searchfields: searchFields = new searchFields(null, null, null, null, null);
 
-  itemsChangedSub: Subscription;
-  infoSubscription: Subscription;
+  private itemsChangedSub: Subscription;
+  private infoSubscription: Subscription;
+  private sortBySub: Subscription;
+  private infoFilterDateSub: Subscription;
 
 
 
@@ -42,9 +46,12 @@ export class FoodListComponent implements OnInit, OnDestroy {
     }
     else {
       let today = new Date();
-      this.filterDate = new Date(+today.getFullYear().toString(), today.getMonth() + 1, today.getDate());
+      this.filterDate = new Date(+today.getFullYear().toString(), today.getMonth(), today.getDate());
       this.infoService.setFilterDate(this.filterDate);
     }
+    this.infoFilterDateSub = this.infoService.getFiltrDateListener().subscribe( newFilterDate => {
+      this.filterDate = newFilterDate;
+    })
 
     //  //  Set up subscription to paramMap for setting activeTab and filterstring
     this.route.paramMap.subscribe( (paramMap: ParamMap) => {
@@ -75,7 +82,9 @@ export class FoodListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.foodItems = foodItems;
         this.totalItems = this.foodItems.length;
-        this.pageSizeOptions = [...new Set([1, 2, 4, 6, 10, 20, this.totalItems])];
+        //  //  The following line that sets itemsPerPage kinda defeats the purpose of the paginator but I feel the site will work better.
+        this.itemsPerPage = this.totalItems;
+        this.pageSizeOptions = [...new Set([5, 10, 15, 20, this.totalItems])];
         this.displayItems = this.foodItems.slice(this.itemsPerPage*(this.currentPage), (this.itemsPerPage*(this.currentPage+1)));
       }
     )
@@ -98,6 +107,10 @@ export class FoodListComponent implements OnInit, OnDestroy {
         this.searchfields = searchFields;
       }
     )
+
+    this.sortBySub = this.events.subscribe( (sortByInfo) => {
+      this.sortByName( sortByInfo.name, sortByInfo.value);
+    })
   }
 
   setDate(form: NgForm) {
@@ -107,28 +120,80 @@ export class FoodListComponent implements OnInit, OnDestroy {
     this.infoService.setFilterDate(this.filterDate);
   }
 
-  compareDate(date: Date, numWeeks: number) {
-    let compareDate = new Date(this.filterDate.getFullYear(), this.filterDate.getMonth(), this.filterDate.getDate() - 7 * numWeeks);
-    if (date < compareDate) {
-      return true;
+  addClasses(itemDate: Date){
+    const oneWeek = new Date(this.filterDate.getTime() + 604800 * 1 * 1000);
+    const twoWeeks = new Date(this.filterDate.getTime() + 604800 * 2 * 1000);
+    const threeWeeks = new Date(this.filterDate.getTime() + 604800 * 3 * 1000);
+    //If item date is less than one week after filter date
+    if(itemDate < oneWeek){
+      return 'red-box';
     }
-    else {
-      return false;
+    //If item date is less than two weeks after filter date AND greater than one week after filter date
+    if(itemDate < twoWeeks && itemDate > oneWeek){
+      return 'orange-box';
     }
+    //If item date is less than three weeks after filter date AND greater than two weeks after filter date
+    if(itemDate < threeWeeks && itemDate > twoWeeks){
+      return 'yellow-box';
+    }
+    //If item date is greater than three weeks -- needed for consistant height for div, could replace.
+    // if(itemDate > threeWeeks){
+      else{
+      return 'clear-box';
+    }
+    // else {
+    //   console.log("[")
+    //   console.log(itemDate)
+    //   console.log(oneWeek)
+    //   console.log(twoWeeks)
+    //   console.log(threeWeeks)
+    //   console.log("]")
+
+    // }
   }
+
 
   onPageChanged(pageData: PageEvent){
     this.currentPage = +pageData.pageIndex;
     this.itemsPerPage = pageData.pageSize;
-    this.totalItems = this.foodItems.length;  //? Should this be displayItems.length
-    this.pageSizeOptions = [...new Set([1, 2, 4, 6, 10, 20, this.totalItems])];
+    this.totalItems = this.foodItems.length;
+    this.pageSizeOptions = [...new Set([5, 10, 15, 20, this.totalItems])];
     this.displayItems = this.foodItems.slice(this.itemsPerPage*(this.currentPage), (this.itemsPerPage*(this.currentPage+1)));
-    const test: number = pageData.pageIndex + 1
+  }
+
+  sortByName(sortOn: string, upOrDown: number){
+    this.displayItems.sort(function(a,b) {
+      if(sortOn === 'name' || sortOn === 'brand' || sortOn === 'size'){
+        const nameA = a[sortOn].toUpperCase();
+        const nameB = b[sortOn].toUpperCase();
+        if(nameA < nameB){
+          return -1 * upOrDown;
+        }
+        if(nameA > nameB){
+          return 1 * upOrDown;
+        }
+        return 0;
+      }
+      if(sortOn === 'expDate' || sortOn === 'quantity'){
+        const nameA = a[sortOn];
+        const nameB = b[sortOn];
+        if(nameA < nameB){
+          return -1 * upOrDown;
+        }
+        if(nameA > nameB){
+          return 1 * upOrDown;
+        }
+        return 0;
+      }
+    });
+    this.displayItems = [...this.displayItems];
   }
 
 
   ngOnDestroy(): void {
     this.itemsChangedSub.unsubscribe();
     this.infoSubscription.unsubscribe();
+    this.sortBySub.unsubscribe();
+    this.infoFilterDateSub.unsubscribe();
   }
 }

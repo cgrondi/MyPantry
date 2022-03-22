@@ -20,16 +20,30 @@ mat-spinner {
 .clear-box {
   border: none;
   background: none;
+  height: 80px;
+  position: relative;
 }
 .yellow-box {
   border: 1px solid rgb(255, 234, 0);
   background: rgba(255, 234, 0, 0.5);
+  height: 80px;
+  position: relative;
 }
 .orange-box {
   border: 1px solid rgb(255, 115, 0);
   background: rgba(255, 115, 0, 0.5);
+  height: 80px;
+  position: relative;
 }
 .red-box {
   border: 1px solid rgb(255, 0, 0);
   background: rgba(255, 0, 0, 0.5);
+  height: 80px;
+  position: relative;
+}
+
+app-food-item {
+  position: absolute;
+  top: 5%;
+  width: 100%;
 }

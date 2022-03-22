@@ -1,8 +1,13 @@
-<div class="row">
+<div class="row form-width">
     <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="row">
+
         <div class="col-xs-12">
-            <h3>Search</h3>
+            <h3 class="search-title">Search</h3>
         </div>
+      </div>
+      <div class="row">
+
         <div class="col-xs-6">
             <label for="name">Name Contains: </label>
             <input class="form-control" type="text" id="name" formControlName="name">
@@ -11,7 +16,10 @@
             <label for="brand">Brand: </label>
             <input class="form-control" type="text" id="brand" formControlName="brand">
         </div>
-        <div class="col-xs-3">
+      </div>
+      <div class="row">
+
+        <div class="col-xs-3 date-input">
             <label for="expDate">Expires before: </label>
             <input class="form-control" type="date" id="expDate" formControlName="expDate">
         </div>
@@ -19,10 +27,12 @@
             <label for="quantity">Less than this Quantity: </label>
             <input class="form-control" type="number" id="quantity" formControlName="quantity">
         </div>
+      </div>
+      <div class="row">
 
         <div class="col-xs-12" formArrayName="tags">
             <div class="row">
-                <div class="col-xs-1">
+                <div class="col-xs-2">
                     <label>Contains tags: </label>
                     <button type="button" mat-raised-button color="accent" (click)="onAddTag()">Add Tag</button>
                 </div>
@@ -37,10 +47,15 @@
             </div>
 
         </div>
+      </div>
+
+      <div class="row">
+
         <div class="col-xs-12">
             <button mat-raised-button color="accent" type="submit" [disabled]="!searchForm.valid">Search</button>
             <button mat-raised-button color="warn" type="button" style="margin: 5px" (click)="clearForm()">Clear Search
                 Fields</button>
         </div>
+      </div>
     </form>
 </div>

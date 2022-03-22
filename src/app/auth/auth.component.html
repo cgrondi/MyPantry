@@ -1,3 +1,9 @@
+<div class="row spacer">
+  <div class="col-xs-12">
+    <span *ngIf="!signupMode" class="title-text">Login</span>
+    <span *ngIf="signupMode" class="title-text">Signup</span>
+  </div>
+</div>
 <mat-card class="login-card">
   <mat-spinner color="accent" *ngIf="isLoading"></mat-spinner>
   <form *ngIf="!isLoading" #authForm="ngForm" (submit)="onSubmit(authForm)">
@@ -13,4 +19,10 @@
     <button *ngIf="!signupMode" mat-raised-button color="accent" type="submit">Login</button>
     <button *ngIf="signupMode" mat-raised-button color="accent" type="submit">Sign up</button>
   </form>
+
+  <span id="FOR_DELETING">
+    <hr>
+    <button *ngIf="signupMode" (click)="onDeleteAll()" type="button" mat-raised-button color="warn">DELETE ALL USERS</button>
+  </span>
+
 </mat-card>

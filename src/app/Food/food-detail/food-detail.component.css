@@ -46,3 +46,79 @@ div {
 .notecard-spacing {
   line-height: 145%;
 }
+.edit-button {
+  float: right;
+}
+
+@media screen and (max-width: 1200px) {
+  .edit-button {
+    float: right;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .text-title {
+    font-size: 2rem;
+  }
+  .card-row {
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: inline-block;
+  }
+  .notecard-spacing {
+    line-height: 175%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .card-row {
+    font-size: 1.2rem;
+  }
+  .card-row label {
+    font-size: 1.5rem;
+  }
+  .card-row h4 {
+    font-family: "Times New Roman", Times, serif;
+  }
+  .text-title {
+    font-family: "Times New Roman", Times, serif;
+  }
+  .card-title {
+    padding-top: 6%;
+    padding-bottom: 2%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .text-title {
+    font-size: 2rem;
+  }
+  .card-row {
+    font-size: 1.2rem;
+    height: 45px;
+  }
+  .card-row label {
+    font-size: 1.6rem;
+  }
+  .card-row h4 {
+    font-size: 1.7rem;
+  }
+  .notecard-spacing {
+    line-height: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .card-row label {
+    font-size: 2rem;
+  }
+  .card-row h4 {
+    font-size: 2rem;
+  }
+  .tags-div {
+    align-items: flex-start;
+  }
+  .tag-content {
+    display: flex;
+  }
+}

@@ -6,3 +6,9 @@ input.ng-invalid.ng-touched {
   margin: auto;
   padding-bottom: 24%;
 }
+
+@media screen and (max-width: 600px) {
+  .form-date {
+    width: 34%;
+  }
+}

@@ -5,9 +5,9 @@
 </div>
 <div class="redline"></div>
 <div class="row card-row">
-  <div class="col-xs-4"><label>Brand Name: </label></div>
-  <div class="col-xs-4"><label>Quantity:</label></div>
-  <div class="col-xs-4"><label>Expiration Date:</label></div>
+  <div class="col-xs-4"><label class="notecard-spacing">Brand Name: </label></div>
+  <div class="col-xs-4"><label class="notecard-spacing">Quantity:</label></div>
+  <div class="col-xs-4"><label class="notecard-spacing">Expiration Date:</label></div>
 </div>
 <div class="blueline"></div>
 <div class="row card-row">
@@ -15,6 +15,8 @@
   <div class="col-xs-4"><h4 class="notecard-spacing">{{ foodItem?.quantity }}</h4></div>
   <div class="col-xs-4"><h4 class="notecard-spacing">{{ foodItem?.expDate | date}}</h4></div>
 </div>
+<div class="blueline"></div>
+<div class="row card-row"></div>
 <div class="blueline"></div>
 <div class="row card-row"></div>
 <div class="blueline"></div>
@@ -32,6 +34,8 @@
 <div class="blueline"></div>
 <div class="row card-row"></div>
 <div class="blueline"></div>
+<div class="row card-row"></div>
+<div class="blueline"></div>
 <div class="row card-row">
   <div class="col-xs-12"><label>Tags:</label></div>
 </div>
@@ -40,8 +44,8 @@
 <span *ngFor="let row of foodItem?.tags | reorderTags:3">
   <div class="blueline"></div>
   <div  class="row card-row">
-      <div class="col-xs-4" *ngFor="let tag of row">
-        <h4>{{tag}}</h4>
+      <div class="col-xs-4 tags-div" *ngFor="let tag of row">
+        <h4 class="tag-content">{{tag}}</h4>
       </div>
   </div>
 </span>
@@ -49,9 +53,13 @@
 
 <div class="blueline"></div>
 <div class="row card-row">
-  <div class="col-xs-11"></div>
-  <div class="col-xs-1">
-      <button mat-raised-button color="accent" (click)="onEdit()" *ngIf="userIsAuthenticated">Edit</button>
+  <!-- <div class="col-xs-11"></div> -->
+  <div class="col-xs-12">
+      <button mat-raised-button color="accent" (click)="onEdit()" *ngIf="userIsAuthenticated" class="edit-button">Edit</button>
   </div>
 </div>
 <div class="blueline"></div>
+<div class="row card-row"></div>
+<div class="blueline"></div>
+<div class="row card-row"></div>
+

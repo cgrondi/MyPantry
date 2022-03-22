@@ -18,7 +18,7 @@ exports.createItem = (req, res, next) => {
   })
   .catch( error => {
     res.status(500).json({
-      message: "Adding food item to databse failed."
+      message: "Adding food item to database failed."
     });
   })
 }
@@ -36,7 +36,6 @@ exports.updateItem = (req, res, next) => {
     _id: req.body.id
   })
   Food.updateOne({_id: req.params.id}, food).then(result => {
-    console.log(result);
     res.status(200).json({
       message: "Food item updated successfully."
     });
@@ -50,11 +49,12 @@ exports.updateItem = (req, res, next) => {
 
 exports.getItems = (req, res, next) => {
   let filter = {};
-  if(req.query.filterString != ''){
-    var filterString = req.query.filterString;
-    filterString = filterString.charAt(0).toUpperCase() + filterString.slice(1);
-    filter = { "storageType": filterString };
-  }
+    if(req.query.filterString != ''){
+      var filterString = req.query.filterString;
+      filterString = filterString.charAt(0).toUpperCase() + filterString.slice(1);
+      filter = { "storageType": filterString };
+    }
+
   Food.find(filter).then(documents => {
     res.status(200).json({
       message: "Food items fetched successfully",
@@ -89,7 +89,6 @@ exports.getItem = (req, res, next) => {
 
 exports.deleteItem = (req, res, next) => {
   Food.deleteOne({ _id: req.params.id }).then(result => {
-    console.log(result);
     res.status(200).json({
       message: "Item deleted successfully"
     });

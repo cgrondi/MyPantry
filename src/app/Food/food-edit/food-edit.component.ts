@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FoodItem } from '../foodItem.model';
 import { FoodItemService } from '../foodItem.service';
@@ -56,7 +56,6 @@ export class FoodEditComponent implements OnInit, OnDestroy {
     let quantity = 0;
     let datestring = '';
     var d: Date = new Date(2020, 0, 1);
-    let expDate = new Date();
     let size = '';
     let location = '';
     let storageType = 'pantry';
@@ -86,7 +85,7 @@ export class FoodEditComponent implements OnInit, OnDestroy {
       'expDate': new FormControl(datestring, Validators.required),
       'size': new FormControl(size, [Validators.required, Validators.maxLength(60)]),
       'location': new FormControl(location, [Validators.required, Validators.maxLength(60)]),
-      'storageType': new FormControl(storageType),
+      'storageType': new FormControl(null, Validators.required),
       'tags': tags
     });
 

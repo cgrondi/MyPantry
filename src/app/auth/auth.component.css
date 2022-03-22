@@ -7,6 +7,19 @@ mat-spinner {
   color: #2e7d32;
 }
 
+.spacer {
+  background-color: #fff9e6;
+  padding-top: 2%;
+}
+.title-text {
+  color: #2e7d32;
+  padding: 2% 11% 2% 2%;
+  font-size: 2rem;
+  font-weight: bolder;
+  font-family: math;
+  font-style: italic;
+}
+
 .login-card {
   margin-top: 2%;
   color: #2e7d32;

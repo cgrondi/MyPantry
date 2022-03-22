@@ -1,0 +1,53 @@
+<div class="list-tab-container">
+  <div class="row list-tab-container">
+    <div class="col-xs-2 list-tab-actions scrollable">
+      <button mat-raised-button color="accent" (click)="onSearch()">Search</button>
+      <button *ngIf="!impendingExpirationMode && userIsAuthenticated" mat-raised-button color="accent" type="button"
+        (click)="onAddItem()">Add
+        Item</button>
+    </div>
+    <div class="col-xs-10 list-tab-actions" *ngIf="impendingExpirationMode">
+      <div class="date-form" >
+        <form (ngSubmit)="setDate(f)" #f=ngForm>
+          <label class="form-child date-label" for="dateInput">Expires by:</label>
+          <input class="form-control form-child date-input" type="date" id="dateInput" name="dateInput"
+            [ngModel]="startDate" required>
+          <button class="form-child" mat-raised-button color="accent" type="submit" [disabled]="!f.valid">Set
+            date</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="labels-container">
+        <div class="row">
+          <div class="col-xs-11">
+            <div class="row labels-row">
+              <div class="col-xs-3 col-label" ><span (click)="sortBy('name')" class="clickable">Name</span>  <span *ngIf="sortOn === 'name'" class="sortArrow">{{ upOrDown > 0 ? '&#8593;' : '&#8595;'}}</span></div>
+              <div class="col-xs-3 col-label" ><span (click)="sortBy('brand')" class="clickable">Brand Name</span> <span *ngIf="sortOn === 'brand'" class="sortArrow">{{ upOrDown > 0 ? '&#8593;' : '&#8595;'}}</span></div>
+              <div class="col-xs-2 col-label" ><span (click)="sortBy('size')" class="clickable">Size</span> <span *ngIf="sortOn === 'size'" class="sortArrow">{{ upOrDown > 0 ? '&#8593;' : '&#8595;'}}</span></div>
+              <div class="col-xs-2 col-label text-center" ><span (click)="sortBy('quantity')" class="clickable">Quantity</span> <span *ngIf="sortOn === 'quantity'" class="sortArrow">{{ upOrDown > 0 ? '&#8593;' : '&#8595;'}}</span></div>
+              <div class="col-xs-2 col-label text-center" ><span (click)="sortBy('expDate')" class="clickable">Expiration Date</span> <span *ngIf="sortOn === 'expDate'" class="sortArrow">{{ upOrDown > 0 ? '&#8593;' : '&#8595;'}}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-food-list [events]="getSortByListener()" ></app-food-list>
+    </div>
+  </div>
+
+  <hr class="leafyVine">
+
+  <mat-card class="card">
+    <div class="row">
+      <div class="col-xs-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-card>
+</div>

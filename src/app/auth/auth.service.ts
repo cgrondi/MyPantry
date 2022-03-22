@@ -33,12 +33,20 @@ export class AuthService{
     const authData: AuthData = { email: email, password: password };
     this.http.post(URL + 'signup', authData)
       .subscribe( result => {
-        // console.log(result);
+        this.authStatusListener.next(false);
         this.router.navigate(['/auth/login']);
       }, error => {
         this.authStatusListener.next(false);
-        // console.log(error);
       });
+  }
+
+  deleteAllUsers(){
+    this.http.delete<{ message: string }>(URL + 'deleteAll')
+      .subscribe( response => {
+        console.log(response.message);
+      }, error => {
+        console.log(error);
+      })
   }
 
   login(email: string, password: string){

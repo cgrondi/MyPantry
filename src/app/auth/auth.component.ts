@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "./auth.service";
 
@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit, OnDestroy{
 
   private authStatusSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService){}
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router){}
 
   ngOnInit(): void {
       //  //  Subscribe to paramMap to tell whether we are in signup mode or not
@@ -49,12 +49,17 @@ export class AuthComponent implements OnInit, OnDestroy{
     }
     this.isLoading = true;
     if(this.signupMode){
-      this.authService.createNewUser(form.value.email, form.value.password);
+      // this.authService.createNewUser(form.value.email, form.value.password);
+      this.router.navigate(['not-found']);
     }
     else{
       this.authService.login(form.value.email, form.value.password);
     }
     form.resetForm();
+  }
+
+  onDeleteAll(){
+    this.authService.deleteAllUsers();
   }
 
   ngOnDestroy(): void {

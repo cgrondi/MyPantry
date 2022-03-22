@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
-import { informationService } from '../shared/information.service';
+import { Subject, Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
+import { informationService } from '../../shared/information.service';
 
 @Component({
   selector: 'app-list-tab',
@@ -17,6 +17,9 @@ export class ListTabComponent implements OnInit, OnDestroy {
   userIsAuthenticated: boolean = false;
 
   private authListenerSub: Subscription;
+  private sortByListener = new Subject<{name: string, value: number}>();
+  upOrDown: number = -1;
+  sortOn: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private infoService: informationService, private authService: AuthService) { }
 
@@ -39,10 +42,14 @@ export class ListTabComponent implements OnInit, OnDestroy {
     }
     else {
       let today = new Date();
-      this.filterDate = new Date(+today.getFullYear().toString(), today.getMonth() + 1, today.getDate());
+      this.filterDate = new Date(+today.getFullYear().toString(), today.getMonth(), today.getDate());
       this.infoService.setFilterDate(this.filterDate);
     }
-    this.startDate = this.filterDate.getFullYear().toString() + '-' + (this.filterDate.getMonth()).toString().padStart(2, '0') + '-' + this.filterDate.getDate().toString().padStart(2, '0');
+    this.startDate = this.filterDate.getFullYear().toString() + '-' + (this.filterDate.getMonth()+1).toString().padStart(2, '0') + '-' + this.filterDate.getDate().toString().padStart(2, '0');
+  }
+
+  getSortByListener(){
+    return this.sortByListener.asObservable();
   }
 
   onSearch() {
@@ -64,6 +71,12 @@ export class ListTabComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
       this.authListenerSub.unsubscribe();
+  }
+
+  sortBy(name: string){
+    this.sortOn = name;
+    this.upOrDown *= -1;
+    this.sortByListener.next({name: name, value: this.upOrDown});
   }
 
 

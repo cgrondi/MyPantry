@@ -9,6 +9,7 @@ export class informationService {
     private activeTab: string;
 
     searchFieldsChanged = new Subject<searchFields>();
+    private filterDateListener = new Subject<Date>();
 
     getFilterDate() {
         return this.filterDate;
@@ -16,6 +17,11 @@ export class informationService {
 
     setFilterDate(newDate: Date) {
         this.filterDate = newDate;
+        this.filterDateListener.next(this.filterDate);
+    }
+
+    getFiltrDateListener(){
+      return this.filterDateListener.asObservable();
     }
 
     getSearchFields() {

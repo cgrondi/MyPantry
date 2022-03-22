@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
@@ -24,22 +24,30 @@ exports.createUser = (req, res, next) => {
     });
 }
 
+exports.deleteAllUsers = (req, res, next) => {
+  User.deleteMany({}, () => {
+    res.status(200).json({
+      message: "All users have been deleted."
+    });
+  }, error => {
+    res.status(500).json({
+      message: "Error. Unable to delete all users."
+    });
+  })
+}
+
 exports.userLogin = (req,res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email }).then( user => {
     if(!user){
-      res.status(401).json({
-        message: "User not found. Login failed."
-      });
+      throw new TypeError('User not found. Login failed.');
     }
     fetchedUser = user;
     return bcrypt.compare(req.body.password, user.password);
   })
   .then( result => {
     if(!result){
-      res.status(401).json({
-        message: "Password does not match. Login failed."
-      });
+      throw new TypeError('Password does not match. Login failed.');
     }
     const token = jwt.sign(
       { email: fetchedUser.email, userId: fetchedUser._id },
@@ -50,9 +58,10 @@ exports.userLogin = (req,res, next) => {
       token: token,
       expiresIn: 3600
     })
-  }).catch( err => {
+  })
+  .catch( error => {
     res.status(401).json({
-      message: "Invalid authentication credentials. Login failed."
+      message: error.message
     });
   })
 }

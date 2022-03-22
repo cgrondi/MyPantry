@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { FoodItem } from "./foodItem.model";
@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators'
 import { Router } from "@angular/router";
 import { informationService } from "../shared/information.service";
 
-
+const BACKEND_URL = environment.apiUrl + '/food/';
 
 @Injectable({ providedIn: 'root' })
 export class FoodItemService {
@@ -15,7 +15,6 @@ export class FoodItemService {
     private itemsChanged = new Subject<FoodItem[]>();
     private itemsStatusListener = new Subject<boolean>();
     private items: FoodItem[];
-    private URL = environment.apiUrl + '/food';
 
     constructor(private http: HttpClient, private router: Router, private infoService: informationService){}
 
@@ -30,7 +29,8 @@ export class FoodItemService {
 
     getItems(filterString: string) {
       const queryParams = `?filterString=${filterString}`;
-      this.http.get<{message: string, food: any}>(this.URL + queryParams)
+      console.log(queryParams);
+      this.http.get<{message: string, food: any}>(BACKEND_URL + queryParams)
       .pipe(map(foodData => {
         return foodData.food.map(foodItem => {
           return {
@@ -55,7 +55,7 @@ export class FoodItemService {
     }
 
     getItem(id: string) {
-      return this.http.get<{ food: {_id: string, name: string, brand: string, quantity: number, size: string, expDate:string, location: string, storageType: string, tags: string[]}}>(this.URL + '/' + id)
+      return this.http.get<{ food: {_id: string, name: string, brand: string, quantity: number, size: string, expDate:string, location: string, storageType: string, tags: string[]}}>(BACKEND_URL + id)
     }
 
     addItem(foodItem: FoodItem) {
@@ -70,11 +70,10 @@ export class FoodItemService {
           tags: foodItem.tags,
           id: foodItem.id
         }
-        this.http.post<{message: string}>(this.URL, postItem)
+        this.http.post<{message: string}>(BACKEND_URL, postItem)
           .subscribe(responseData => {
             this.itemsChanged.next(this.items.slice());
             this.getItems(this.infoService.getActiveTab());
-            console.log(responseData.message);
           }, err => {
             console.log(err);
           });
@@ -92,7 +91,7 @@ export class FoodItemService {
         tags: newItem.tags,
         id: newItem.id
       }
-      this.http.put<{message: string}>(this.URL + '/' + index, postItem)
+      this.http.put<{message: string}>(BACKEND_URL + index, postItem)
         .subscribe(result => {
           console.log(result);
           const updatedItems = [...this.items];
@@ -105,10 +104,15 @@ export class FoodItemService {
         })
     }
 
-    deleteItem(index: number) {
-        this.http.delete(this.URL + '/' + index)
+    deleteItem(index: string) {
+        this.http.delete(BACKEND_URL + index)
           .subscribe( () => {
-            this.getItems(this.infoService.getActiveTab());
+            if(!(this.infoService.getActiveTab() === 'impendingExpiration')){
+              this.getItems(this.infoService.getActiveTab());
+            }
+            else{
+              this.getItems('');
+            }
           })
     }
 }

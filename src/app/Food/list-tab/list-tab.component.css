@@ -1,0 +1,95 @@
+.list-tab-container {
+  background-color: #fff9e6;
+  z-index: 1;
+}
+
+.list-tab-actions {
+  width: auto;
+}
+
+.scrollable {
+  overflow-y: hidden;
+}
+.card {
+  background: #ffff;
+  box-shadow: 6px 6px 5px gray;
+  padding: 5px;
+  margin-bottom: 5%;
+}
+
+.leafyVine {
+  border: 0;
+  height: 46px;
+  width: 68%;
+  background-image: url(../../../assets/images/LeafyVine2.png);
+  background-repeat: no-repeat;
+}
+
+.labels-container {
+  background-color: #e2ddca;
+  padding-left: 1%;
+  border-bottom: 2px solid #2e7d32;
+}
+.labels-row {
+  width: 100%;
+}
+.col-label {
+  padding-right: 1%;
+  padding-top: 1%;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #2e7d32;
+}
+.clickable {
+  cursor: pointer;
+}
+
+.date-input {
+  width: 48%;
+}
+.date-label {
+  color: #2e7d32;
+}
+
+.form-child {
+  display: inline;
+  margin-right: 1%;
+}
+
+.sortArrow {
+  float: inline-end;
+}
+
+@media screen and (max-width: 600px) {
+  .list-tab-container {
+    z-index: 1;
+  }
+
+  .col-label {
+    font-size: 1.75rem;
+  }
+
+  .leafyVine {
+    background-size: contain;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .col-label {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .col-label {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .date-input {
+    width: 55%;
+  }
+}
