@@ -49,7 +49,7 @@ export class AuthComponent implements OnInit, OnDestroy{
     }
     this.isLoading = true;
     if(this.signupMode){
-      // this.authService.createNewUser(form.value.email, form.value.password);
+      this.authService.createNewUser(form.value.email, form.value.password);
       this.router.navigate(['not-found']);
     }
     else{

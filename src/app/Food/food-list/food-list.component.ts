@@ -121,35 +121,24 @@ export class FoodListComponent implements OnInit, OnDestroy {
   }
 
   addClasses(itemDate: Date){
-    const oneWeek = new Date(this.filterDate.getTime() + 604800 * 1 * 1000);
-    const twoWeeks = new Date(this.filterDate.getTime() + 604800 * 2 * 1000);
-    const threeWeeks = new Date(this.filterDate.getTime() + 604800 * 3 * 1000);
-    //If item date is less than one week after filter date
-    if(itemDate < oneWeek){
+    const oneWeek = (this.filterDate.getTime() + 604800 * 1 * 1000);
+    const twoWeeks = (this.filterDate.getTime() + 604800 * 2 * 1000);
+    const threeWeeks = (this.filterDate.getTime() + 604800 * 3 * 1000);
+    if(itemDate.getTime() < oneWeek){
       return 'red-box';
     }
     //If item date is less than two weeks after filter date AND greater than one week after filter date
-    if(itemDate < twoWeeks && itemDate > oneWeek){
+    if(itemDate.getTime() < twoWeeks && itemDate.getTime() >= oneWeek){
       return 'orange-box';
     }
     //If item date is less than three weeks after filter date AND greater than two weeks after filter date
-    if(itemDate < threeWeeks && itemDate > twoWeeks){
+    if(itemDate.getTime() < threeWeeks && itemDate.getTime() >= twoWeeks){
       return 'yellow-box';
     }
     //If item date is greater than three weeks -- needed for consistant height for div, could replace.
-    // if(itemDate > threeWeeks){
-      else{
+    else{
       return 'clear-box';
     }
-    // else {
-    //   console.log("[")
-    //   console.log(itemDate)
-    //   console.log(oneWeek)
-    //   console.log(twoWeeks)
-    //   console.log(threeWeeks)
-    //   console.log("]")
-
-    // }
   }
 
 

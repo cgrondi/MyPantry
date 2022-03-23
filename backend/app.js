@@ -7,7 +7,7 @@ const userRoutes = require('./routes/user');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://cam:' + process.env.MONGO_ATLAS_PW +'@cluster0.xhjip.mongodb.net/pantryFoods?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://cam:' + process.env.MONGO_ATLAS_PW +'@cluster0.4iudh.mongodb.net/myPantryFoods?retryWrites=true&w=majority')
   .then( () => {
     console.log("Connected to database.");
   }).catch( () => {
@@ -19,12 +19,12 @@ mongoose.connect('mongodb+srv://cam:' + process.env.MONGO_ATLAS_PW +'@cluster0.x
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use((req,res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Request-With, Content-Type, Accept, Authorization");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
-//   next();
-// });
+app.use((req,res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Request-With, Content-Type, Accept, Authorization");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+  next();
+});
 
 
 app.use('/api/food', foodRoutes);

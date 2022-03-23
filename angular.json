@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MimisPantry": {
+    "MyPantry": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "MimisPantry:build:production"
+              "browserTarget": "MyPantry:build:production"
             },
             "development": {
-              "browserTarget": "MimisPantry:build:development"
+              "browserTarget": "MyPantry:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MimisPantry:build"
+            "browserTarget": "MyPantry:build"
           }
         },
         "test": {
@@ -104,5 +104,5 @@
       }
     }
   },
-  "defaultProject": "MimisPantry"
+  "defaultProject": "MyPantry"
 }

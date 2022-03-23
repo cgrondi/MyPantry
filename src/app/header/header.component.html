@@ -1,6 +1,6 @@
 <div class="row logo">
   <div class="col-xs-12 title-tile">
-    <h1>Mimi's Pantry</h1>
+    <h1>My Pantry</h1>
     <img class="titleDecoration" src="../../../assets/images/VineRightDecoration.png" alt="VineDecoration">
   </div>
 </div>
@@ -21,6 +21,6 @@
     <div class="col-xs-auto auth-button-container">
       <a class="auth-button" mat-flat-button routerLink="/auth/login" *ngIf="!userIsAuthenticated">Login</a>
       <button type="button" mat-flat-button class="auth-button" *ngIf="userIsAuthenticated" (click)="onLogout()">Logout</button>
-      <!-- <a class="auth-button" mat-flat-button routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a> -->
+      <a class="auth-button" mat-flat-button routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a>
     </div>
 </div>
