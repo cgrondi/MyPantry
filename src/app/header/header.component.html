@@ -1,26 +1,29 @@
-<div class="row logo">
-  <div class="col-xs-12 title-tile">
-    <h1>My Pantry</h1>
-    <img class="titleDecoration" src="../../../assets/images/VineRightDecoration.png" alt="VineDecoration">
+<div class="headerContainer">
+
+  <div class="row logo">
+    <div class="col-xs-12 title-tile">
+      <h1>My Pantry</h1>
+      <img class="titleDecoration" src="../../../assets/images/VineRightDecoration2.png" alt="VineDecoration">
+    </div>
   </div>
-</div>
-<div class="row mat-app-background">
-    <div class="col-xs-3">
-        <ul class="nav nav-tabs">
-            <li class="nav-item" [ngClass]="{'active': activeTab === 'pantry' }">
-                <a class="nav-link tab-link" [routerLink]='["tabs/pantry"]' >Pantry</a>
-            </li>
-            <li class="nav-item" [ngClass]="{'active': activeTab === 'freezer' }">
-                <a class="nav-link tab-link" [routerLink]='["tabs/freezer"]' >Freezer</a>
-            </li>
-            <li class="nav-item" [ngClass]="{'active': activeTab === 'impendingExpiration' }">
-                <a class="nav-link tab-link" [routerLink]='["tabs/impendingExpiration"]'>Impending Expiration</a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-xs-auto auth-button-container">
-      <a class="auth-button" mat-flat-button routerLink="/auth/login" *ngIf="!userIsAuthenticated">Login</a>
-      <button type="button" mat-flat-button class="auth-button" *ngIf="userIsAuthenticated" (click)="onLogout()">Logout</button>
-      <a class="auth-button" mat-flat-button routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a>
-    </div>
+  <div class="row ">
+      <div class="col-xs-3">
+          <ul class="nav nav-tabs">
+              <li class="nav-item" [ngClass]="{'active': activeTab === 'pantry' }">
+                  <a class="nav-link tab-link" [routerLink]='["tabs/pantry"]' >Pantry</a>
+              </li>
+              <li class="nav-item" [ngClass]="{'active': activeTab === 'freezer' }">
+                  <a class="nav-link tab-link" [routerLink]='["tabs/freezer"]' >Freezer</a>
+              </li>
+              <li class="nav-item" [ngClass]="{'active': activeTab === 'impendingExpiration' }">
+                  <a class="nav-link tab-link" [routerLink]='["tabs/impendingExpiration"]'>Impending Expiration</a>
+              </li>
+          </ul>
+      </div>
+      <div class="col-xs-auto auth-button-container">
+        <a class="auth-button" mat-raised-button color="accent" routerLink="/auth/login" *ngIf="!userIsAuthenticated">Login</a>
+        <button type="button" mat-flat-button class="auth-button" *ngIf="userIsAuthenticated" (click)="onLogout()">Logout</button>
+        <a class="auth-button" mat-raised-button color="accent" routerLink="/auth/signup" *ngIf="!userIsAuthenticated">Sign up</a>
+      </div>
+  </div>
 </div>

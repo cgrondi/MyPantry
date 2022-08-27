@@ -54,6 +54,8 @@ export class ListTabComponent implements OnInit, OnDestroy {
 
   onSearch() {
     this.router.navigate(['search'], { relativeTo: this.route });
+    let el = document.getElementById('scrollTo');
+    el.scrollIntoView({behavior: 'smooth'});
   }
 
   onAddItem() {
